@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Los Disfraces de Sara y Complementos - #Efecodes40</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --comic-border: #1e1b18;
+            --card-orange: #f59e0b;
+            --consonant-blue: #0055b3;
+            --vowel-red: #e61919;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #13111c;
+            color: #1e1b18;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .comic-font {
+            font-family: 'Comic Neue', 'Fredoka', cursive, sans-serif;
+        }
+        .comic-box {
+            border: 4px solid #1e1b18;
+            box-shadow: 5px 5px 0px #1e1b18;
+        }
+        .comic-btn {
+            border: 3px solid #1e1b18;
+            box-shadow: 0 5px 0 #1e1b18;
+            transition: all 0.12s ease;
+        }
+        .comic-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #1e1b18;
+        }
+        .pdf-card {
+            background: #ffffff;
+            border: 4px solid #f59e0b;
+            border-radius: 18px;
+            box-shadow: 0 6px 0 #b45309, 0 10px 15px rgba(0,0,0,0.35);
+        }
+        /* Animaciones de cómic */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+            70% { transform: scale(1.08) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        @keyframes walkBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-6px) rotate(-3deg); }
+            75% { transform: translateY(-6px) rotate(3deg); }
+        }
+        @keyframes spinBurst {
+            0% { transform: scale(0.2) rotate(0deg); opacity: 1; }
+            60% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1.6) rotate(360deg); opacity: 0; }
+        }
+        .animate-float {
+            animation: floatSlow 2.6s ease-in-out infinite;
+        }
+        .animate-pop {
+            animation: popIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .sara-walking {
+            animation: walkBounce 0.35s infinite;
+        }
+        /* Fondo estilo calle adoquinada de Ibáñez */
+        .street-stage {
+            background: linear-gradient(180deg, #1b2845 0%, #274060 48%, #3b2d38 58%, #4a3b32 60%, #5c4938 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .scratch-grid-box {
+            left: 6%;
+            top: 8%;
+            width: 88%;
+            height: 84%;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            background-color: rgba(15, 23, 42, 0.38);
+            border: 4px solid #38bdf8;
+            border-radius: 16px;
+            box-shadow: 0 0 0 4px #1e1b18, 0 10px 25px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        .scratch-grid-cell {
+            border: 1.5px dashed rgba(255, 255, 255, 0.55);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="h-full w-full flex flex-col bg-slate-950 text-slate-900 overflow-hidden">
+
+    <header class="w-full shrink-0 bg-amber-400 border-b-4 border-stone-900 px-3 py-2 shadow-md z-20">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <!-- Logo y Título estilo PDF -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="bg-white border-3 border-amber-600 rounded-xl px-2.5 py-1 shadow-sm flex items-center gap-1.5">
+                    <span class="text-xl sm:text-2xl">🎃</span>
+                    <div>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-purple-800 block leading-none">#Efecodes40 de Halloween</span>
+                        <h1 class="text-sm sm:text-lg font-extrabold text-stone-900 leading-tight">DISFRACES DE SARA</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selector de Modos Didácticos -->
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <button id="modeAdventureBtn" onclick="setGameMode('adventure')" class="comic-btn bg-purple-600 text-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1">
+                    <span>🎮</span> <span class="hidden sm:inline">Modo</span> Calle
+                </button>
+                <button id="modeScratchBtn" onclick="setGameMode('scratch')" class="comic-btn bg-sky-500 text-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1">
+                    <span>🧩</span> <span class="hidden sm:inline">Reto</span> Scratch Jr
+                </button>
+                <button id="modeDresserBtn" onclick="setGameMode('dresser')" class="comic-btn bg-emerald-500 text-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1">
+                    <span>🃏</span> Tarjetas
+                </button>
+                <button id="modeQuizBtn" onclick="setGameMode('quiz')" class="comic-btn bg-rose-500 text-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1">
+                    <span>🏆</span> Concurso
+                </button>
+                <button id="soundToggleBtn" onclick="toggleSound()" class="comic-btn bg-white text-stone-900 px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold" title="Sonido Sí/No">
+                    🔊
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-6xl mx-auto p-2 sm:p-4 flex flex-col gap-3 overflow-y-auto overflow-x-hidden">
+
+        <!-- Barra Superior de Estado / Misión y Colección de Disfraces -->
+        <div class="bg-amber-50 comic-box rounded-2xl p-2.5 sm:p-3 flex flex-col md:flex-row items-center justify-between gap-3">
+            <!-- Misión actual con tarjeta estilo PDF -->
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div id="currentCostumeBadge" class="pdf-card w-16 h-20 sm:w-20 sm:h-24 flex flex-col items-center justify-center p-1 shrink-0 relative">
+                    <div id="badgeSvgContainer" class="w-12 h-12 sm:w-14 sm:h-14"></div>
+                    <div id="badgeLabel" class="text-[10px] sm:text-xs font-extrabold tracking-tight leading-none mt-1"></div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                        <span id="missionTag" class="bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase">Misión Activa</span>
+                        <span id="progressText" class="text-xs font-bold text-stone-600">Disfraces: 0 / 6</span>
+                        <button type="button" onclick="restartFullGame()" class="bg-amber-200 hover:bg-amber-300 border border-stone-800 text-stone-900 text-[10px] font-extrabold px-2 py-0.5 rounded-lg transition" title="Volver a colocar todas las tarjetas">
+                            🔄 Reiniciar Tarjetas
+                        </button>
+                    </div>
+                    <p id="missionPrompt" class="text-sm sm:text-base font-bold text-stone-800 mt-1 leading-snug">
+                        ¡Mueve a <span class="text-blue-700">S</span><span class="text-red-600">A</span><span class="text-blue-700">R</span><span class="text-red-600">A</span> hacia un complemento en la calle para disfrazarla!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Colección de los 6 Disfraces Conseguidos -->
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center bg-amber-100/90 border-2 border-amber-400 rounded-xl p-1.5 w-full md:w-auto">
+                <div id="slot-bruja" onclick="selectTargetCostume('bruja')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Bruja - Escoba"></div>
+                <div id="slot-momia" onclick="selectTargetCostume('momia')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Momia - Papel"></div>
+                <div id="slot-vampiro" onclick="selectTargetCostume('vampiro')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Vampiro - Dentadura"></div>
+                <div id="slot-lobo" onclick="selectTargetCostume('lobo')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Lobo - Hocico"></div>
+                <div id="slot-gato" onclick="selectTargetCostume('gato')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Gato - Capucha"></div>
+                <div id="slot-fantasma" onclick="selectTargetCostume('fantasma')" class="cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/70 flex flex-col items-center justify-center p-0.5 transition hover:scale-105" title="Fantasma - Sábana"></div>
+            </div>
+        </div>
+
+        <div id="gameStageWrapper" class="relative w-full flex-1 flex flex-col lg:flex-row gap-3">
+            
+            <!-- ESCENARIO DE LA CALLE (Modo Calle y Modo Scratch Jr) -->
+            <div id="streetContainer" class="street-stage comic-box rounded-2xl flex-1 min-h-[380px] sm:min-h-[450px] relative select-none" onclick="handleStageClick(event)">
+                
+                <!-- Fondo SVG estilo Bruguera / Ibáñez (Casas, Farolas, Luna, Calabazas, Adoquines) -->
+                <svg class="w-full h-full absolute inset-0 pointer-events-none" viewBox="0 0 900 500" preserveAspectRatio="none">
+                    <!-- Cielo nocturno y estrellas -->
+                    <rect width="900" height="310" fill="#1d2d44"/>
+                    <circle cx="150" cy="45" r="2.5" fill="#fef08a"/>
+                    <circle cx="280" cy="70" r="2" fill="#fef08a"/>
+                    <circle cx="620" cy="35" r="3" fill="#fef08a"/>
+                    <circle cx="760" cy="65" r="2" fill="#fef08a"/>
+                    <!-- Luna creciente y murciélago con paracaídas (guiño al cómic) -->
+                    <path d="M 465 30 A 32 32 0 1 0 495 78 A 26 26 0 1 1 465 30 Z" fill="#fef9c3" stroke="#1e1b18" stroke-width="2.5"/>
+                    <!-- Siluetas de edificios al fondo -->
+                    <polygon points="240,310 240,140 290,105 340,140 340,180 410,180 410,310" fill="#2b3a55" stroke="#1e1b18" stroke-width="3"/>
+                    <polygon points="520,310 520,165 565,125 610,165 610,310" fill="#2b3a55" stroke="#1e1b18" stroke-width="3"/>
+                    <rect x="265" y="160" width="18" height="24" fill="#fbbf24" stroke="#1e1b18" stroke-width="2"/>
+                    <rect x="555" y="185" width="18" height="24" fill="#fbbf24" stroke="#1e1b18" stroke-width="2"/>
+
+                    <!-- Casa Izquierda (Ladrillo cálido) -->
+                    <polygon points="0,330 230,310 230,55 0,10" fill="#c2593f" stroke="#1e1b18" stroke-width="4"/>
+                    <polygon points="0,15 242,62 235,45 0,0" fill="#7c2d12" stroke="#1e1b18" stroke-width="3"/>
+                    <!-- Ventana iluminada izquierda -->
+                    <rect x="35" y="95" width="60" height="80" fill="#fde047" stroke="#1e1b18" stroke-width="3.5"/>
+                    <line x1="65" y1="95" x2="65" y2="175" stroke="#1e1b18" stroke-width="3"/>
+                    <line x1="35" y1="135" x2="95" y2="135" stroke="#1e1b18" stroke-width="3"/>
+                    <!-- Puerta de madera izquierda -->
+                    <rect x="130" y="185" width="65" height="130" rx="4" fill="#854d0e" stroke="#1e1b18" stroke-width="3.5"/>
+                    <circle cx="182" cy="250" r="4" fill="#1e1b18"/>
+
+                    <!-- Casa Derecha (Ocre cálido) -->
+                    <polygon points="900,330 660,310 660,60 900,15" fill="#d69e66" stroke="#1e1b18" stroke-width="4"/>
+                    <polygon points="900,20 648,68 655,50 900,5" fill="#7c2d12" stroke="#1e1b18" stroke-width="3"/>
+                    <!-- Ventana iluminada derecha -->
+                    <rect x="795" y="105" width="65" height="80" fill="#fde047" stroke="#1e1b18" stroke-width="3.5"/>
+                    <line x1="827" y1="105" x2="827" y2="185" stroke="#1e1b18" stroke-width="3"/>
+                    <line x1="795" y1="145" x2="860" y2="145" stroke="#1e1b18" stroke-width="3"/>
+                    <!-- Puerta derecha -->
+                    <rect x="700" y="190" width="62" height="125" rx="4" fill="#713f12" stroke="#1e1b18" stroke-width="3.5"/>
+
+                    <!-- Farolas clásicas -->
+                    <g>
+                        <rect x="208" y="175" width="8" height="140" fill="#334155" stroke="#1e1b18" stroke-width="2.5"/>
+                        <polygon points="196,175 228,175 234,142 190,142" fill="#fef08a" stroke="#1e1b18" stroke-width="3"/>
+                        <polygon points="186,142 238,142 212,124" fill="#1e293b" stroke="#1e1b18" stroke-width="3"/>
+                        <circle cx="212" cy="160" r="35" fill="rgba(254, 240, 138, 0.22)"/>
+                    </g>
+                    <g>
+                        <rect x="640" y="175" width="8" height="140" fill="#334155" stroke="#1e1b18" stroke-width="2.5"/>
+                        <polygon points="628,175 660,175 666,142 622,142" fill="#fef08a" stroke="#1e1b18" stroke-width="3"/>
+                        <polygon points="618,142 670,142 644,124" fill="#1e293b" stroke="#1e1b18" stroke-width="3"/>
+                        <circle cx="644" cy="160" r="35" fill="rgba(254, 240, 138, 0.22)"/>
+                    </g>
+
+                    <!-- Suelo de adoquines (Zona de juego) -->
+                    <polygon points="0,310 900,310 900,500 0,500" fill="#6b5b53" stroke="#1e1b18" stroke-width="4"/>
+                    <!-- Aceras -->
+                    <polygon points="0,310 250,310 210,335 0,340" fill="#9ca3af" stroke="#1e1b18" stroke-width="3"/>
+                    <polygon points="900,310 640,310 680,335 900,340" fill="#9ca3af" stroke="#1e1b18" stroke-width="3"/>
+                    
+                    <!-- Detalles de adoquines -->
+                    <g stroke="#3f3530" stroke-width="2.5" fill="#7d6b61">
+                        <rect x="60" y="360" width="55" height="22" rx="6"/>
+                        <rect x="130" y="365" width="60" height="22" rx="6"/>
+                        <rect x="260" y="350" width="52" height="20" rx="6"/>
+                        <rect x="420" y="355" width="62" height="22" rx="6"/>
+                        <rect x="590" y="348" width="55" height="20" rx="6"/>
+                        <rect x="740" y="362" width="58" height="22" rx="6"/>
+                        <rect x="100" y="425" width="65" height="25" rx="7"/>
+                        <rect x="290" y="435" width="70" height="25" rx="7"/>
+                        <rect x="480" y="420" width="65" height="25" rx="7"/>
+                        <rect x="670" y="438" width="68" height="25" rx="7"/>
+                        <rect x="190" y="465" width="72" height="24" rx="7"/>
+                        <rect x="560" y="468" width="72" height="24" rx="7"/>
+                    </g>
+
+                    <!-- Calabazas decorativas en las esquinas -->
+                    <g transform="translate(22, 295)">
+                        <ellipse cx="25" cy="22" rx="24" ry="19" fill="#ea580c" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M22,3 C22,-4 28,-4 28,3" stroke="#15803d" stroke-width="4" fill="none"/>
+                        <polygon points="14,16 20,10 23,18" fill="#fef08a"/>
+                        <polygon points="28,18 32,10 37,16" fill="#fef08a"/>
+                        <path d="M13,25 Q25,35 37,25" stroke="#fef08a" stroke-width="3" fill="none"/>
+                    </g>
+                    <g transform="translate(830, 295)">
+                        <ellipse cx="25" cy="22" rx="24" ry="19" fill="#ea580c" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M22,3 C22,-4 28,-4 28,3" stroke="#15803d" stroke-width="4" fill="none"/>
+                        <polygon points="14,16 20,10 23,18" fill="#fef08a"/>
+                        <polygon points="28,18 32,10 37,16" fill="#fef08a"/>
+                        <path d="M13,25 Q25,35 37,25" stroke="#fef08a" stroke-width="3" fill="none"/>
+                    </g>
+                </svg>
+
+                <!-- Capa de Cuadrícula 6x4 completa y centrada (Visible en Modo Scratch Jr) -->
+                <div id="scratchGridOverlay" class="hidden absolute scratch-grid-box pointer-events-none z-10"></div>
+
+                <!-- Contenedor Dinámico de Complementos en el Suelo -->
+                <div id="accessoriesLayer" class="absolute inset-0 z-10"></div>
+
+                <!-- Protagonista: SARA -->
+                <div id="saraPlayer" class="absolute z-20 transition-all duration-200 flex flex-col items-center pointer-events-none" style="left: 12%; top: 55%; width: 105px; height: 135px; transform: translate(-50%, -50%);">
+                    <!-- Bocadillo cómic sobre Sara -->
+                    <div id="saraBubble" class="hidden mb-1 bg-white border-2 border-stone-900 rounded-xl px-2.5 py-0.5 text-xs font-extrabold shadow-md whitespace-nowrap animate-pop">
+                        ¡Hola! Soy Sara
+                    </div>
+                    <!-- Sprite SVG de Sara -->
+                    <div id="saraSpriteContainer" class="w-24 h-28 sm:w-28 sm:h-32 drop-shadow-[0_6px_4px_rgba(0,0,0,0.45)]"></div>
+                </div>
+
+                <!-- Efecto Cómic de Transformación (¡ZAS! / ¡PLOP!) -->
+                <div id="comicPowEffect" class="hidden absolute z-30 pointer-events-none flex items-center justify-center" style="width: 140px; height: 140px; transform: translate(-50%, -50%);">
+                    <div class="bg-yellow-300 border-4 border-stone-900 rounded-full px-4 py-3 shadow-lg animate-pop">
+                        <span id="comicPowText" class="comic-font text-2xl font-black text-red-600">¡ZAS! ✨</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL LATERAL DERECHO: CONTROLES E INFORMACIÓN (Modo Calle) -->
+            <div id="adventurePanel" class="w-full lg:w-72 bg-amber-100 comic-box rounded-2xl p-3 flex flex-col justify-between gap-3 shrink-0">
+                <div class="flex flex-col gap-2.5">
+                    <div class="flex items-center justify-between border-b-2 border-amber-300 pb-2">
+                        <span class="font-extrabold text-stone-900 text-sm sm:text-base flex items-center gap-1.5">
+                            <span>🎮</span> Panel de Calle
+                        </span>
+                        <span id="adventurePendingBadge" class="bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-lg">
+                            Faltan: 6
+                        </span>
+                    </div>
+
+                    <!-- Información del estado actual de Sara -->
+                    <div class="bg-white border-2 border-amber-400 rounded-xl p-2.5 shadow-sm">
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 block">Estado actual</span>
+                        <p id="adventureStatusText" class="text-xs sm:text-sm font-bold text-stone-800 mt-0.5 leading-snug">
+                            Sara lleva su <b>vestido azul</b>. ¡Busca un complemento!
+                        </p>
+                    </div>
+
+                    <!-- Guía rápida de juego -->
+                    <div class="bg-amber-50/90 border border-amber-300 rounded-xl p-2.5 text-xs text-stone-700 space-y-1">
+                        <p class="font-extrabold text-stone-900">💡 ¿Cómo mover a Sara?</p>
+                        <p>• Usa las <b>flechas de abajo</b> o las del teclado.</p>
+                        <p>• También puedes <b>tocar cualquier tarjeta</b> en la calle.</p>
+                    </div>
+                </div>
+
+                <!-- Cruceta de Dirección (D-Pad) fuera de la pantalla de juego -->
+                <div class="bg-amber-200/80 border-2 border-amber-400 rounded-2xl p-3 flex flex-col items-center gap-2">
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-stone-700">Mando de Dirección</span>
+                    <button type="button"
+                        onpointerdown="startMove(0, -1, event)"
+                        onpointerup="stopMove()"
+                        onpointerleave="stopMove()"
+                        onpointercancel="stopMove()"
+                        style="touch-action: none;"
+                        class="comic-btn bg-amber-400 hover:bg-amber-300 w-12 h-12 rounded-xl font-black text-xl flex items-center justify-center select-none"
+                        title="Subir">⬆️</button>
+                    <div class="flex items-center gap-2">
+                        <button type="button"
+                            onpointerdown="startMove(-1, 0, event)"
+                            onpointerup="stopMove()"
+                            onpointerleave="stopMove()"
+                            onpointercancel="stopMove()"
+                            style="touch-action: none;"
+                            class="comic-btn bg-amber-400 hover:bg-amber-300 w-12 h-12 rounded-xl font-black text-xl flex items-center justify-center select-none"
+                            title="Izquierda">⬅️</button>
+                        <button type="button"
+                            onclick="resetSaraToBase()"
+                            class="comic-btn bg-white hover:bg-stone-100 w-12 h-12 rounded-xl font-bold text-base flex items-center justify-center select-none"
+                            title="Quitar disfraz y ver a Sara">👧</button>
+                        <button type="button"
+                            onpointerdown="startMove(1, 0, event)"
+                            onpointerup="stopMove()"
+                            onpointerleave="stopMove()"
+                            onpointercancel="stopMove()"
+                            style="touch-action: none;"
+                            class="comic-btn bg-amber-400 hover:bg-amber-300 w-12 h-12 rounded-xl font-black text-xl flex items-center justify-center select-none"
+                            title="Derecha">➡️</button>
+                    </div>
+                    <button type="button"
+                        onpointerdown="startMove(0, 1, event)"
+                        onpointerup="stopMove()"
+                        onpointerleave="stopMove()"
+                        onpointercancel="stopMove()"
+                        style="touch-action: none;"
+                        class="comic-btn bg-amber-400 hover:bg-amber-300 w-12 h-12 rounded-xl font-black text-xl flex items-center justify-center select-none"
+                        title="Bajar">⬇️</button>
+                </div>
+            </div>
+
+            <!-- PANEL SCRATCH JR (Solo visible en Modo Scratch Jr) -->
+            <div id="scratchPanel" class="hidden w-full lg:w-80 bg-sky-100 comic-box rounded-2xl p-3 flex flex-col justify-between gap-3">
+                <div>
+                    <div class="flex items-center justify-between border-b-2 border-sky-300 pb-2">
+                        <span class="font-extrabold text-sky-950 text-sm sm:text-base flex items-center gap-1.5">
+                            <span>🧩</span> Bloques Scratch Jr
+                        </span>
+                        <span class="bg-sky-600 text-white text-xs font-bold px-2 py-0.5 rounded-lg">Cuadrícula 6x4</span>
+                    </div>
+                    <p class="text-xs text-sky-900 mt-2 font-medium">
+                        Pulsa las flechas azules para crear el algoritmo de Sara hasta su complemento y pulsa la <b>Bandera Verde</b>:
+                    </p>
+
+                    <!-- Paleta de Bloques -->
+                    <div class="grid grid-cols-4 gap-2 my-3">
+                        <button onclick="addScratchBlock('RIGHT')" class="comic-btn bg-blue-500 text-white py-2 rounded-xl font-black text-lg flex flex-col items-center">
+                            ➡️ <span class="text-[10px]">Derecha</span>
+                        </button>
+                        <button onclick="addScratchBlock('LEFT')" class="comic-btn bg-blue-500 text-white py-2 rounded-xl font-black text-lg flex flex-col items-center">
+                            ⬅️ <span class="text-[10px]">Izquierda</span>
+                        </button>
+                        <button onclick="addScratchBlock('UP')" class="comic-btn bg-blue-500 text-white py-2 rounded-xl font-black text-lg flex flex-col items-center">
+                            ⬆️ <span class="text-[10px]">Subir</span>
+                        </button>
+                        <button onclick="addScratchBlock('DOWN')" class="comic-btn bg-blue-500 text-white py-2 rounded-xl font-black text-lg flex flex-col items-center">
+                            ⬇️ <span class="text-[10px]">Bajar</span>
+                        </button>
+                    </div>
+
+                    <!-- Secuencia de programa -->
+                    <div class="bg-white border-3 border-sky-400 rounded-xl p-2 min-h-[82px] flex items-center gap-1.5 overflow-x-auto">
+                        <div class="bg-yellow-400 border-2 border-stone-900 rounded-lg px-2 py-2 text-lg shrink-0" title="Al pulsar Bandera Verde">🏳️‍🟢</div>
+                        <div id="scratchProgramList" class="flex items-center gap-1"></div>
+                        <div class="bg-purple-500 text-white border-2 border-stone-900 rounded-lg px-2 py-1.5 text-xs font-bold shrink-0" title="Disfrazarse al llegar">✨Disfraz</div>
+                        <div class="bg-red-500 border-2 border-stone-900 rounded-lg px-2 py-2 text-sm text-white font-bold shrink-0">FIN</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="runScratchProgram()" class="comic-btn flex-1 bg-green-500 hover:bg-green-400 text-white font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-sm">
+                        <span>🏳️‍🟢</span> ¡EJECUTAR!
+                    </button>
+                    <button onclick="clearScratchProgram()" class="comic-btn bg-rose-500 text-white font-bold px-3 py-2.5 rounded-xl text-sm" title="Borrar bloques">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+
+            <!-- MODO TARJETAS / PROBADOR INTERACTIVO (Oculto por defecto) -->
+            <div id="dresserContainer" class="hidden w-full bg-amber-100 comic-box rounded-2xl p-4 flex-col gap-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-amber-300 pb-2">
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-extrabold text-stone-900">🃏 Juego de Tarjetas: Disfraces de Sara y Complementos</h2>
+                        <p class="text-xs sm:text-sm text-stone-700">Haz clic en cualquier tarjeta de complemento para vestir a Sara y leer las palabras (consonantes en <span class="text-blue-700 font-bold">azul</span> y vocales en <span class="text-red-600 font-bold">rojo</span>).</p>
+                    </div>
+                    <button onclick="resetSaraToBase()" class="comic-btn bg-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold">
+                        🔄 Ver a SARA sin disfraz
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                    <!-- Tarjeta Grande Central de Sara -->
+                    <div class="lg:col-span-5 flex flex-col items-center">
+                        <div class="pdf-card w-64 sm:w-72 p-4 flex flex-col items-center justify-between min-h-[320px] relative">
+                            <span id="dresserBadgeTop" class="bg-amber-100 text-amber-900 border border-amber-400 px-3 py-0.5 rounded-full text-xs font-bold uppercase">Protagonista</span>
+                            <div id="dresserSaraSvg" class="w-44 h-52 my-2 flex items-center justify-center"></div>
+                            <div id="dresserSaraWord" class="text-2xl sm:text-3xl font-black tracking-wider text-center"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cuadrícula de las 6 Tarjetas de Complementos del PDF -->
+                    <div id="dresserCardsGrid" class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+                </div>
+            </div>
+
+            <!-- MODO CONCURSO DE 6 PREGUNTAS (Oculto por defecto) -->
+            <div id="quizContainer" class="hidden w-full bg-rose-50 comic-box rounded-2xl p-4 flex-col gap-4">
+                <!-- Cabecera del Concurso -->
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-rose-200 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-rose-600 text-white font-extrabold px-3 py-1 rounded-xl text-xs sm:text-sm">
+                            🏆 CONCURSO DE HALLOWEEN
+                        </span>
+                        <span id="quizProgressBadge" class="bg-amber-300 border-2 border-stone-900 text-stone-900 font-black px-3 py-0.5 rounded-xl text-xs sm:text-sm">
+                            Pregunta 1 de 6
+                        </span>
+                    </div>
+
+                    <!-- Contador de Oportunidades (Hasta 3 intentos por pregunta) -->
+                    <div class="flex items-center gap-2 bg-white border-2 border-stone-900 rounded-xl px-3 py-1 shadow-sm">
+                        <span class="text-xs sm:text-sm font-extrabold text-stone-700">Oportunidades:</span>
+                        <div id="quizLivesDisplay" class="flex items-center gap-1 text-base sm:text-lg">
+                            ❤️❤️❤️
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cuerpo Principal del Concurso -->
+                <div id="quizActiveArea" class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center my-1">
+                    <!-- Columna Izquierda: Sara esperando su disfraz / transformada -->
+                    <div class="lg:col-span-4 flex flex-col items-center">
+                        <div class="pdf-card w-56 sm:w-64 p-4 flex flex-col items-center justify-between min-h-[270px] relative bg-white">
+                            <span id="quizSaraStatusBadge" class="bg-purple-100 text-purple-900 border border-purple-400 px-3 py-0.5 rounded-full text-xs font-extrabold uppercase">
+                                ¿Qué necesito?
+                            </span>
+                            <div id="quizSaraSvg" class="w-36 h-44 my-1 flex items-center justify-center transition-transform duration-300"></div>
+                            <div id="quizSaraWord" class="text-xl sm:text-2xl font-black tracking-wider text-center"></div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Pregunta y 3 Opciones de Complementos -->
+                    <div class="lg:col-span-8 flex flex-col gap-4">
+                        <!-- Enunciado de la pregunta -->
+                        <div class="bg-white comic-box rounded-2xl p-4 text-center">
+                            <p class="text-xs font-extrabold uppercase text-rose-600 tracking-wider mb-1">
+                                Elige el dibujo del complemento correcto
+                            </p>
+                            <h2 id="quizQuestionText" class="text-lg sm:text-2xl font-black text-stone-900 leading-snug">
+                                ¿Qué necesita SARA para disfrazarse de VAMPIRO?
+                            </h2>
+                        </div>
+
+                        <!-- 3 Tarjetas de Opciones con los dibujos de los complementos -->
+                        <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+
+                        <!-- Barra de Feedback y Botón Siguiente -->
+                        <div id="quizFeedbackBox" class="hidden comic-box rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 animate-pop">
+                            <p id="quizFeedbackText" class="text-sm sm:text-base font-extrabold text-center sm:text-left"></p>
+                            <button id="quizNextBtn" type="button" onclick="nextQuizQuestion()" class="hidden comic-btn bg-emerald-500 hover:bg-emerald-400 text-white font-black px-5 py-2 rounded-xl text-sm sm:text-base shrink-0">
+                                Siguiente Pregunta ➡️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pantalla Final de Resumen del Concurso con Sara y su Trofeo -->
+                <div id="quizSummaryArea" class="hidden flex-col items-center justify-center text-center py-4 px-2 gap-4 animate-pop">
+                    <div class="pdf-card bg-gradient-to-b from-amber-50 to-yellow-100 p-4 sm:p-6 max-w-md w-full flex flex-col items-center relative">
+                        <span class="bg-amber-400 border-2 border-stone-900 text-stone-900 font-black px-4 py-1 rounded-full text-xs sm:text-sm uppercase shadow-sm">
+                            🏆 ¡Campeona de Halloween! 🏆
+                        </span>
+                        <!-- Ilustración SVG de Sara sosteniendo el Trofeo -->
+                        <div id="quizTrophySaraSvg" class="w-48 h-56 sm:w-56 sm:h-64 my-2 flex items-center justify-center drop-shadow-[0_6px_6px_rgba(0,0,0,0.3)]"></div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 leading-tight">
+                            ¡Concurso Completado!
+                        </h3>
+                        <p id="quizSummaryText" class="text-sm sm:text-base font-bold text-stone-700 mt-1"></p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3 mt-1">
+                        <button type="button" onclick="startQuizGame()" class="comic-btn bg-rose-500 hover:bg-rose-400 text-white font-extrabold px-6 py-2.5 rounded-2xl text-base">
+                            🔄 Repetir Concurso
+                        </button>
+                        <button type="button" onclick="setGameMode('adventure')" class="comic-btn bg-purple-600 text-white font-extrabold px-6 py-2.5 rounded-2xl text-base">
+                            🎮 Ir al Modo Calle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Éxito al Emparejar Complemento + Disfraz -->
+    <div id="matchModal" class="hidden fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
+        <div class="bg-amber-50 comic-box rounded-3xl max-w-lg w-full p-5 text-center animate-pop relative">
+            <div class="inline-block bg-yellow-300 border-3 border-stone-900 rounded-full px-4 py-1 text-sm font-extrabold uppercase mb-3">
+                ¡Complemento Encontrado! ✨
+            </div>
+
+            <!-- Ecuación Visual con Tarjetas del PDF -->
+            <div class="flex items-center justify-center gap-2 sm:gap-4 my-2">
+                <div class="pdf-card p-3 w-32 sm:w-36 flex flex-col items-center">
+                    <div id="modalAccSvg" class="w-20 h-20 flex items-center justify-center"></div>
+                    <div id="modalAccWord" class="text-sm sm:text-base font-black mt-2"></div>
+                </div>
+
+                <span class="text-2xl sm:text-4xl font-black text-amber-500">➡️</span>
+
+                <div class="pdf-card p-3 w-36 sm:w-40 flex flex-col items-center">
+                    <div id="modalCostumeSvg" class="w-24 h-24 flex items-center justify-center"></div>
+                    <div id="modalCostumeWord" class="text-base sm:text-lg font-black mt-2"></div>
+                </div>
+            </div>
+
+            <p id="modalStoryText" class="text-sm sm:text-base font-bold text-stone-700 my-3"></p>
+
+            <div class="flex justify-center gap-3 mt-4">
+                <button onclick="closeMatchModal()" class="comic-btn bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold px-6 py-2.5 rounded-2xl text-base">
+                    ¡Seguir Jugando! 🎃
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Final: Escenario del Teatro "¡MUCHAS GRACIAS! ¡PLAS, PLAS!" -->
+    <div id="finaleModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3">
+        <div class="bg-amber-100 comic-box rounded-3xl max-w-2xl w-full overflow-hidden animate-pop">
+            <!-- Escenario de Teatro SVG con Sara sin disfraz y sus accesorios -->
+            <div class="relative w-full bg-amber-900 border-b-4 border-stone-900">
+                <svg viewBox="0 0 700 340" class="w-full h-auto block">
+                    <!-- Fondo escenario -->
+                    <rect width="700" height="250" fill="#fef3c7"/>
+                    <!-- Tablas de madera del escenario -->
+                    <polygon points="0,230 700,230 700,340 0,340" fill="#d97706" stroke="#1e1b18" stroke-width="4"/>
+                    <line x1="100" y1="230" x2="40" y2="340" stroke="#92400e" stroke-width="2"/>
+                    <line x1="250" y1="230" x2="220" y2="340" stroke="#92400e" stroke-width="2"/>
+                    <line x1="450" y1="230" x2="480" y2="340" stroke="#92400e" stroke-width="2"/>
+                    <line x1="600" y1="230" x2="660" y2="340" stroke="#92400e" stroke-width="2"/>
+
+                    <!-- Cortinas rojas de teatro -->
+                    <path d="M0,0 L120,0 Q95,120 75,260 L0,260 Z" fill="#991b1b" stroke="#1e1b18" stroke-width="4"/>
+                    <path d="M700,0 L580,0 Q605,120 625,260 L700,260 Z" fill="#991b1b" stroke="#1e1b18" stroke-width="4"/>
+                    <path d="M0,0 Q180,45 350,15 Q520,45 700,0 L700,35 Q520,75 350,40 Q180,75 0,35 Z" fill="#b91c1c" stroke="#1e1b18" stroke-width="4"/>
+
+                    <!-- Pancarta "¡MUCHAS GRACIAS!" -->
+                    <rect x="155" y="22" width="390" height="52" rx="10" fill="#ffffff" stroke="#1e1b18" stroke-width="4"/>
+                    <text x="350" y="57" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="900" font-size="31" fill="#dc2626" stroke="#1e1b18" stroke-width="1">¡MUCHAS GRACIAS!</text>
+
+                    <!-- Accesorios alrededor de Sara en el escenario -->
+                    <!-- Escoba y sombrero -->
+                    <g transform="translate(115, 195)">
+                        <line x1="0" y1="60" x2="110" y2="35" stroke="#78350f" stroke-width="6" stroke-linecap="round"/>
+                        <polygon points="0,60 -35,50 -25,75" fill="#eab308" stroke="#1e1b18" stroke-width="2.5"/>
+                        <polygon points="25,40 85,40 55,-5" fill="#581c87" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Nariz de bruja sola (sin gafas, como pediste) -->
+                        <path d="M85,55 Q115,55 110,70 Q95,72 82,63 Z" fill="#84cc16" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="96" cy="62" r="2" fill="#4d7c0f"/>
+                    </g>
+
+                    <!-- Tocado egipcio, rollo de papel, dentadura y capucha a la derecha -->
+                    <g transform="translate(435, 195)">
+                        <path d="M20,45 Q55,-10 90,45 L80,65 L30,65 Z" fill="#1d4ed8" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="105" y="38" width="32" height="36" rx="6" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <ellipse cx="121" cy="38" rx="16" ry="6" fill="#e5e7eb" stroke="#1e1b18" stroke-width="2"/>
+                        <ellipse cx="121" cy="38" rx="6" ry="2.5" fill="#92400e"/>
+                    </g>
+
+                    <!-- Sara saludando en el centro -->
+                    <g transform="translate(295, 78) scale(0.95)">
+                        <!-- Pelo marrón ondulado -->
+                        <path d="M25,45 Q20,10 55,10 Q90,10 85,45 Q98,65 88,82 L22,82 Q12,65 25,45 Z" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Brazos saludando -->
+                        <path d="M32,92 L5,68" stroke="#fed7aa" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M78,92 L105,68" stroke="#fed7aa" stroke-width="11" stroke-linecap="round"/>
+                        <!-- Cara -->
+                        <circle cx="55" cy="54" r="24" fill="#fed7aa" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Flequillo -->
+                        <path d="M30,45 Q45,28 55,42 Q65,28 80,45 Q75,20 55,20 Q35,20 30,45 Z" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Ojos y sonrisa -->
+                        <circle cx="46" cy="52" r="5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="46" cy="52" r="2" fill="#1e1b18"/>
+                        <circle cx="64" cy="52" r="5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="64" cy="52" r="2" fill="#1e1b18"/>
+                        <path d="M44,64 Q55,74 66,64 Z" fill="#dc2626" stroke="#1e1b18" stroke-width="2.5"/>
+                        <!-- Vestido azul -->
+                        <polygon points="36,78 74,78 84,142 26,142" fill="#3b82f6" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Piernas y botas -->
+                        <rect x="40" y="142" width="10" height="26" fill="#f3f4f6" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="60" y="142" width="10" height="26" fill="#f3f4f6" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="33" y="164" width="20" height="14" rx="5" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="57" y="164" width="20" height="14" rx="5" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                    </g>
+
+                    <!-- Aplausos del público "¡PLAS! ¡PLAS!" -->
+                    <text x="150" y="325" font-family="Fredoka, sans-serif" font-weight="900" font-size="24" fill="#ffffff" stroke="#1e1b18" stroke-width="4" paint-order="stroke">¡PLAS! 👏</text>
+                    <text x="350" y="328" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="900" font-size="26" fill="#fef08a" stroke="#1e1b18" stroke-width="4" paint-order="stroke">👏 ¡PLAS! 👏</text>
+                    <text x="545" y="325" font-family="Fredoka, sans-serif" font-weight="900" font-size="24" fill="#ffffff" stroke="#1e1b18" stroke-width="4" paint-order="stroke">¡PLAS! 👏</text>
+                </svg>
+            </div>
+            <div class="p-5 text-center">
+                <h3 class="text-xl sm:text-2xl font-black text-stone-900">¡Enhorabuena! ¡Sara ha completado todos sus disfraces!</h3>
+                <p class="text-sm sm:text-base text-stone-700 mt-1 font-medium">
+                    Has emparejado los 6 complementos de Halloween con su disfraz correspondiente.
+                </p>
+                <div class="flex flex-wrap justify-center gap-3 mt-4">
+                    <button onclick="restartFullGame()" class="comic-btn bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold px-6 py-2.5 rounded-2xl text-base">
+                        🔄 Jugar otra vez
+                    </button>
+                    <button onclick="closeFinaleAndExplore()" class="comic-btn bg-purple-600 text-white font-extrabold px-6 py-2.5 rounded-2xl text-base">
+                        🃏 Ir a las Tarjetas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Formateador pedagógico de palabras (Consonantes en AZUL, Vocales en ROJO)
+         * Exactamente igual que el diseño del PDF "Tarjetas de Disfraces de Sara y complementos"
+         */
+        const VOWELS = new Set(['A', 'E', 'I', 'O', 'U', 'Á', 'É', 'Í', 'Ó', 'Ú', 'Ü']);
+        function formatPedagogicalWord(word) {
+            return word.toUpperCase().split('').map(char => {
+                if (char === ' ') return '&nbsp;';
+                const isVowel = VOWELS.has(char);
+                const color = isVowel ? 'var(--vowel-red)' : 'var(--consonant-blue)';
+                return `<span style="color: ${color}">${char}</span>`;
+            }).join('');
+        }
+
+        /**
+         * Base de datos de Disfraces y Complementos según el PDF
+         */
+        const SCRATCH_GRID_BOUNDS = {
+            left: 6,
+            top: 8,
+            width: 88,
+            height: 84,
+            cols: 6,
+            rows: 4
+        };
+
+        function getScratchCellCenter(gridX, gridY) {
+            return {
+                leftPct: SCRATCH_GRID_BOUNDS.left + ((gridX + 0.5) / SCRATCH_GRID_BOUNDS.cols) * SCRATCH_GRID_BOUNDS.width,
+                topPct: SCRATCH_GRID_BOUNDS.top + ((gridY + 0.5) / SCRATCH_GRID_BOUNDS.rows) * SCRATCH_GRID_BOUNDS.height
+            };
+        }
+
+        const COSTUMES_DATA = {
+            bruja: {
+                id: 'bruja',
+                costumeWord: 'BRUJA',
+                accessoryWord: 'ESCOBA',
+                story: '¡Con la ESCOBA mágica y la nariz de verrugas, Sara se transforma en la BRUJA!',
+                gridX: 1, gridY: 0,
+                posX: 25, posY: 56
+            },
+            momia: {
+                id: 'momia',
+                costumeWord: 'MOMIA',
+                accessoryWord: 'PAPEL',
+                story: '¡Con el rollo de PAPEL higiénico y el tocado egipcio, Sara se disfraza de MOMIA!',
+                gridX: 4, gridY: 1,
+                posX: 74, posY: 55
+            },
+            vampiro: {
+                id: 'vampiro',
+                costumeWord: 'VAMPIRO',
+                accessoryWord: 'DENTADURA',
+                story: '¡Al ponerse la DENTADURA de colmillos y la capa, Sara es una VAMPIRO!',
+                gridX: 2, gridY: 1,
+                posX: 42, posY: 82
+            },
+            lobo: {
+                id: 'lobo',
+                costumeWord: 'LOBO',
+                accessoryWord: 'HOCICO',
+                story: '¡Con el HOCICO peludo de broma, Sara pega un gran salto disfrazada de LOBO!',
+                gridX: 3, gridY: 3,
+                posX: 85, posY: 73
+            },
+            gato: {
+                id: 'gato',
+                costumeWord: 'GATO',
+                accessoryWord: 'CAPUCHA',
+                story: '¡Con la CAPUCHA de orejitas grises, Sara maúlla vestida de GATO!',
+                gridX: 3, gridY: 0,
+                posX: 56, posY: 58
+            },
+            fantasma: {
+                id: 'fantasma',
+                costumeWord: 'FANTASMA',
+                accessoryWord: 'SÁBANA',
+                story: '¡Debajo de la SÁBANA blanca con agujeros, Sara asusta como un FANTASMA!',
+                gridX: 1, gridY: 3,
+                posX: 20, posY: 84
+            }
+        };
+
+        /**
+         * Ilustraciones SVG estilo cómic (inspiradas en los dibujos generados de Sara)
+         */
+        function getCharacterSVG(type) {
+            switch (type) {
+                case 'sara':
+                    return `
+                    <svg viewBox="0 0 120 150" class="w-full h-full">
+                        <ellipse cx="60" cy="142" rx="28" ry="5" fill="rgba(0,0,0,0.22)"/>
+                        <!-- Melena castaña ondulada de Sara -->
+                        <path d="M26,52 Q20,12 60,12 Q100,12 94,52 Q106,75 94,90 L26,90 Q14,75 26,52 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Brazos -->
+                        <path d="M38,85 L25,112" stroke="#fdbcb4" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M38,85 L25,112" stroke="#1e1b18" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path d="M82,85 L95,112" stroke="#fdbcb4" stroke-width="10" stroke-linecap="round"/>
+                        <!-- Vestido azul de Sara -->
+                        <polygon points="40,78 80,78 90,122 30,122" fill="#4a80b0" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round"/>
+                        <path d="M38,78 L27,95 L38,98 Z" fill="#4a80b0" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M82,78 L93,95 L82,98 Z" fill="#4a80b0" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Piernas blancas y botas marrones -->
+                        <rect x="44" y="120" width="11" height="16" fill="#f8fafc" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="65" y="120" width="11" height="16" fill="#f8fafc" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M38,132 L57,132 L57,143 L35,143 Q33,136 38,132 Z" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M63,132 L82,132 Q87,136 85,143 L63,143 Z" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Cabeza y cara con pecas -->
+                        <circle cx="60" cy="54" r="24" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Flequillo -->
+                        <path d="M34,46 Q48,28 60,42 Q72,28 86,46 Q82,18 60,18 Q38,18 34,46 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Ojos grandes estilo cómic -->
+                        <circle cx="50" cy="53" r="6" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="51" cy="53" r="2.3" fill="#1e1b18"/>
+                        <circle cx="70" cy="53" r="6" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="69" cy="53" r="2.3" fill="#1e1b18"/>
+                        <!-- Pecas y sonrisa -->
+                        <circle cx="43" cy="61" r="1.2" fill="#c2410c"/>
+                        <circle cx="47" cy="63" r="1.2" fill="#c2410c"/>
+                        <circle cx="73" cy="63" r="1.2" fill="#c2410c"/>
+                        <circle cx="77" cy="61" r="1.2" fill="#c2410c"/>
+                        <path d="M50,65 Q60,73 70,65" stroke="#1e1b18" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </svg>`;
+
+                case 'bruja':
+                    return `
+                    <svg viewBox="0 0 130 155" class="w-full h-full">
+                        <ellipse cx="65" cy="147" rx="30" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Pelo castaño -->
+                        <path d="M30,62 Q22,82 32,92 L98,92 Q108,82 100,62 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Vestido morado con estrellas -->
+                        <polygon points="44,82 86,82 96,125 34,125" fill="#581c87" stroke="#1e1b18" stroke-width="3.5"/>
+                        <circle cx="55" cy="100" r="3.5" fill="#facc15"/>
+                        <circle cx="75" cy="112" r="4" fill="#facc15"/>
+                        <circle cx="52" cy="116" r="3" fill="#facc15"/>
+                        <!-- Medias a rayas y botas -->
+                        <rect x="48" y="124" width="11" height="15" fill="#f97316" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="71" y="124" width="11" height="15" fill="#f97316" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="42" y="136" width="19" height="12" rx="4" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="69" y="136" width="19" height="12" rx="4" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Cara -->
+                        <circle cx="65" cy="60" r="23" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3.5"/>
+                        <circle cx="55" cy="56" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="56" cy="56" r="2" fill="#1e1b18"/>
+                        <circle cx="74" cy="56" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="74" cy="56" r="2" fill="#1e1b18"/>
+                        <!-- Goma y Nariz postiza verde con verrugas -->
+                        <line x1="42" y1="58" x2="88" y2="58" stroke="#475569" stroke-width="2"/>
+                        <path d="M62,55 Q92,57 90,71 Q75,73 62,64 Z" fill="#84cc16" stroke="#1e1b18" stroke-width="2.8"/>
+                        <circle cx="76" cy="62" r="2.2" fill="#4d7c0f"/>
+                        <circle cx="83" cy="66" r="1.8" fill="#4d7c0f"/>
+                        <path d="M54,71 Q65,78 74,71" stroke="#1e1b18" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                        <!-- Sombrero de bruja -->
+                        <ellipse cx="65" cy="42" rx="42" ry="11" fill="#3b0764" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M38,40 L55,5 L78,8 L92,40 Z" fill="#581c87" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M40,35 L90,35" stroke="#a855f7" stroke-width="6"/>
+                        <circle cx="62" cy="22" r="3.5" fill="#facc15"/>
+                        <!-- Escoba en mano -->
+                        <line x1="108" y1="70" x2="22" y2="132" stroke="#78350f" stroke-width="6" stroke-linecap="round"/>
+                        <polygon points="26,128 4,136 16,150 32,135" fill="#eab308" stroke="#1e1b18" stroke-width="2.8"/>
+                    </svg>`;
+
+                case 'momia':
+                    return `
+                    <svg viewBox="0 0 125 155" class="w-full h-full">
+                        <ellipse cx="62" cy="147" rx="28" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Tocado Egipcio (Nemes azul y dorado) -->
+                        <path d="M22,78 Q18,14 62,14 Q106,14 102,78 L88,82 L36,82 Z" fill="#1d4ed8" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M28,34 L96,34 M24,50 L100,50 M23,66 L101,66" stroke="#eab308" stroke-width="5"/>
+                        <!-- Cuerpo envuelto en papel higiénico -->
+                        <rect x="38" y="78" width="48" height="52" rx="8" fill="#ffffff" stroke="#1e1b18" stroke-width="3.5"/>
+                        <line x1="38" y1="90" x2="86" y2="98" stroke="#1e1b18" stroke-width="2.5"/>
+                        <line x1="86" y1="92" x2="38" y2="108" stroke="#1e1b18" stroke-width="2.5"/>
+                        <line x1="38" y1="115" x2="86" y2="122" stroke="#1e1b18" stroke-width="2.5"/>
+                        <!-- Tiras de papel colgando -->
+                        <path d="M38,105 L20,122 L28,128 L40,115" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <path d="M86,110 L102,128 L93,132 L82,118" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <!-- Cara con vendas y ojos de Sara -->
+                        <circle cx="62" cy="54" r="22" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M40,42 L84,46 L84,34 L40,34 Z" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <path d="M42,65 L82,60 L80,74 L44,74 Z" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="52" cy="53" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="52" cy="53" r="2" fill="#1e1b18"/>
+                        <circle cx="72" cy="53" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="72" cy="53" r="2" fill="#1e1b18"/>
+                        <!-- Sandalias egipcias -->
+                        <rect x="42" y="130" width="16" height="14" rx="4" fill="#d97706" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="66" y="130" width="16" height="14" rx="4" fill="#d97706" stroke="#1e1b18" stroke-width="3"/>
+                    </svg>`;
+
+                case 'vampiro':
+                    return `
+                    <svg viewBox="0 0 130 155" class="w-full h-full">
+                        <ellipse cx="65" cy="147" rx="32" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Capa negra con interior rojo y cuello alto -->
+                        <polygon points="35,42 95,42 108,65 22,65" fill="#dc2626" stroke="#1e1b18" stroke-width="3.5"/>
+                        <polygon points="28,65 102,65 112,142 18,142" fill="#1e1b18" stroke="#1e1b18" stroke-width="3.5"/>
+                        <polygon points="34,68 96,68 102,138 28,138" fill="#b91c1c"/>
+                        <!-- Melena castaña de Sara -->
+                        <path d="M30,52 Q24,14 65,14 Q106,14 100,52 Q110,72 96,82 L34,82 Q20,72 30,52 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Traje esmoquin negro y pajarita roja -->
+                        <rect x="44" y="76" width="42" height="58" rx="4" fill="#0f172a" stroke="#1e1b18" stroke-width="3.5"/>
+                        <polygon points="54,76 76,76 65,98" fill="#ffffff" stroke="#1e1b18" stroke-width="2"/>
+                        <polygon points="53,76 65,82 53,88" fill="#dc2626" stroke="#1e1b18" stroke-width="2"/>
+                        <polygon points="77,76 65,82 77,88" fill="#dc2626" stroke="#1e1b18" stroke-width="2"/>
+                        <!-- Cara con colmillos de vampiro -->
+                        <circle cx="65" cy="52" r="23" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M38,44 Q52,26 65,40 Q78,26 92,44 Q86,16 65,16 Q44,16 38,44 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3"/>
+                        <circle cx="55" cy="50" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="55" cy="50" r="2" fill="#1e1b18"/>
+                        <circle cx="75" cy="50" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="75" cy="50" r="2" fill="#1e1b18"/>
+                        <!-- Boca abierta con colmillos blancos -->
+                        <path d="M51,61 Q65,75 79,61 Z" fill="#991b1b" stroke="#1e1b18" stroke-width="2.5"/>
+                        <polygon points="54,62 59,62 56.5,70" fill="#ffffff" stroke="#1e1b18" stroke-width="1.5"/>
+                        <polygon points="71,62 76,62 73.5,70" fill="#ffffff" stroke="#1e1b18" stroke-width="1.5"/>
+                    </svg>`;
+
+                case 'lobo':
+                    return `
+                    <svg viewBox="0 0 130 155" class="w-full h-full">
+                        <ellipse cx="65" cy="147" rx="28" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Cola peluda -->
+                        <path d="M82,112 Q115,105 112,130 Q98,135 80,122 Z" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Cuerpo peludo marrón -->
+                        <rect x="40" y="75" width="50" height="52" rx="14" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <ellipse cx="65" cy="102" rx="15" ry="18" fill="#b45309"/>
+                        <!-- Brazos levantados con garras -->
+                        <path d="M40,85 L18,62" stroke="#78350f" stroke-width="13" stroke-linecap="round"/>
+                        <path d="M90,85 L112,62" stroke="#78350f" stroke-width="13" stroke-linecap="round"/>
+                        <!-- Cabeza con orejas puntiagudas y hocico postizo -->
+                        <polygon points="38,40 32,12 54,28" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <polygon points="92,40 98,12 76,28" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <circle cx="65" cy="52" r="24" fill="#78350f" stroke="#1e1b18" stroke-width="3.5"/>
+                        <circle cx="55" cy="46" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="55" cy="46" r="2" fill="#1e1b18"/>
+                        <circle cx="75" cy="46" r="5.5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="75" cy="46" r="2" fill="#1e1b18"/>
+                        <!-- Hocico prostético con goma -->
+                        <ellipse cx="65" cy="63" rx="18" ry="12" fill="#a16207" stroke="#1e1b18" stroke-width="3"/>
+                        <ellipse cx="65" cy="57" rx="7" ry="4.5" fill="#1e1b18"/>
+                        <polygon points="54,71 58,71 56,77" fill="#ffffff" stroke="#1e1b18" stroke-width="1.5"/>
+                        <polygon points="72,71 76,71 74,77" fill="#ffffff" stroke="#1e1b18" stroke-width="1.5"/>
+                        <!-- Patas -->
+                        <rect x="42" y="125" width="18" height="18" rx="6" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="70" y="125" width="18" height="18" rx="6" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                    </svg>`;
+
+                case 'gato':
+                    return `
+                    <svg viewBox="0 0 130 155" class="w-full h-full">
+                        <ellipse cx="65" cy="147" rx="28" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Cola de gato gris -->
+                        <path d="M42,115 Q14,115 18,90 Q22,82 28,90 Q26,105 42,108" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Mono gris de gato -->
+                        <rect x="40" y="78" width="50" height="54" rx="14" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <ellipse cx="65" cy="104" rx="14" ry="18" fill="#cbd5e1"/>
+                        <!-- Capucha gris con orejas de gato -->
+                        <polygon points="36,38 30,12 54,24" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <polygon points="94,38 100,12 76,24" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <circle cx="65" cy="52" r="26" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Cara dentro de la capucha -->
+                        <circle cx="65" cy="54" r="20" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3"/>
+                        <circle cx="56" cy="50" r="5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="56" cy="50" r="2" fill="#1e1b18"/>
+                        <circle cx="74" cy="50" r="5" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="74" cy="50" r="2" fill="#1e1b18"/>
+                        <!-- Bigotes pintados -->
+                        <line x1="36" y1="56" x2="50" y2="58" stroke="#1e1b18" stroke-width="2"/>
+                        <line x1="36" y1="62" x2="50" y2="61" stroke="#1e1b18" stroke-width="2"/>
+                        <line x1="80" y1="58" x2="94" y2="56" stroke="#1e1b18" stroke-width="2"/>
+                        <line x1="80" y1="61" x2="94" y2="62" stroke="#1e1b18" stroke-width="2"/>
+                        <path d="M56,64 Q65,71 74,64" stroke="#1e1b18" stroke-width="2.5" fill="none"/>
+                        <!-- Cesta calabaza -->
+                        <circle cx="102" cy="108" r="15" fill="#ea580c" stroke="#1e1b18" stroke-width="3"/>
+                        <path d="M92,102 Q102,82 112,102" stroke="#1e1b18" stroke-width="2.5" fill="none"/>
+                        <!-- Patas grises -->
+                        <rect x="42" y="128" width="18" height="14" rx="5" fill="#64748b" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="70" y="128" width="18" height="14" rx="5" fill="#64748b" stroke="#1e1b18" stroke-width="3"/>
+                    </svg>`;
+
+                case 'fantasma':
+                    return `
+                    <svg viewBox="0 0 130 155" class="w-full h-full">
+                        <ellipse cx="65" cy="147" rx="30" ry="5" fill="rgba(0,0,0,0.25)"/>
+                        <!-- Piernas con medias de rayas y zapatillas -->
+                        <rect x="47" y="118" width="11" height="18" fill="#f97316" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="72" y="118" width="11" height="18" fill="#f97316" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="40" y="133" width="21" height="12" rx="5" fill="#94a3b8" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="69" y="133" width="21" height="12" rx="5" fill="#94a3b8" stroke="#1e1b18" stroke-width="3"/>
+                        <!-- Sábana blanca de fantasma con pliegues -->
+                        <path d="M35,45 Q35,12 65,12 Q95,12 95,45 L112,115 Q98,125 85,115 Q72,128 60,116 Q45,128 32,116 L20,112 Z" fill="#ffffff" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round"/>
+                        <!-- Agujeros negros para los ojos -->
+                        <ellipse cx="56" cy="44" rx="6" ry="9" fill="#1e1b18"/>
+                        <ellipse cx="74" cy="44" rx="6" ry="9" fill="#1e1b18"/>
+                        <!-- Calabaza de caramelos -->
+                        <circle cx="24" cy="102" r="15" fill="#ea580c" stroke="#1e1b18" stroke-width="3"/>
+                    </svg>`;
+
+                case 'sara_trofeo':
+                    return `
+                    <svg viewBox="0 0 160 170" class="w-full h-full">
+                        <!-- Estrellas y destellos de celebración -->
+                        <polygon points="22,28 26,36 35,37 28,43 30,52 22,47 14,52 16,43 9,37 18,36" fill="#facc15" stroke="#1e1b18" stroke-width="2"/>
+                        <polygon points="138,24 141,30 148,31 143,36 144,43 138,39 132,43 133,36 128,31 135,30" fill="#facc15" stroke="#1e1b18" stroke-width="2"/>
+                        <circle cx="26" cy="85" r="4" fill="#f43f5e"/>
+                        <circle cx="142" cy="78" r="4.5" fill="#38bdf8"/>
+                        <circle cx="40" cy="16" r="3.5" fill="#a855f7"/>
+                        <circle cx="118" cy="14" r="3.5" fill="#22c55e"/>
+
+                        <ellipse cx="78" cy="158" rx="42" ry="6" fill="rgba(0,0,0,0.22)"/>
+
+                        <!-- Melena castaña de Sara -->
+                        <path d="M36,56 Q30,14 68,14 Q106,14 100,56 Q112,78 100,94 L36,94 Q24,78 36,56 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3.5"/>
+
+                        <!-- Brazo izquierdo saludando -->
+                        <path d="M46,90 L22,68" stroke="#fdbcb4" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M46,90 L22,68" stroke="#1e1b18" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+                        <!-- Vestido azul de Sara -->
+                        <polygon points="48,82 88,82 98,132 38,132" fill="#4a80b0" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round"/>
+                        <!-- Piernas y botas -->
+                        <rect x="52" y="130" width="11" height="18" fill="#f8fafc" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="73" y="130" width="11" height="18" fill="#f8fafc" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="45" y="144" width="20" height="13" rx="5" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+                        <rect x="71" y="144" width="20" height="13" rx="5" fill="#6b3e26" stroke="#1e1b18" stroke-width="3"/>
+
+                        <!-- Cabeza y expresión feliz de Sara -->
+                        <circle cx="68" cy="56" r="24" fill="#fdbcb4" stroke="#1e1b18" stroke-width="3.5"/>
+                        <path d="M42,48 Q56,30 68,44 Q80,30 94,48 Q90,20 68,20 Q46,20 42,48 Z" fill="#7c4324" stroke="#1e1b18" stroke-width="3"/>
+                        <circle cx="58" cy="54" r="6" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="59" cy="54" r="2.5" fill="#1e1b18"/>
+                        <circle cx="78" cy="54" r="6" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <circle cx="77" cy="54" r="2.5" fill="#1e1b18"/>
+                        <!-- Pecas y gran sonrisa -->
+                        <circle cx="50" cy="62" r="1.3" fill="#c2410c"/>
+                        <circle cx="54" cy="64" r="1.3" fill="#c2410c"/>
+                        <circle cx="82" cy="64" r="1.3" fill="#c2410c"/>
+                        <circle cx="86" cy="62" r="1.3" fill="#c2410c"/>
+                        <path d="M56,64 Q68,77 80,64 Z" fill="#dc2626" stroke="#1e1b18" stroke-width="2.8"/>
+
+                        <!-- Brazo derecho sosteniendo el Gran Trofeo Dorado -->
+                        <path d="M86,92 L112,86" stroke="#fdbcb4" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M86,92 L112,86" stroke="#1e1b18" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+                        <!-- GRAN TROFEO DORADO -->
+                        <g transform="translate(95, 42)">
+                            <!-- Asas del trofeo -->
+                            <path d="M8,16 Q-6,16 -4,30 Q-2,42 12,38" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M8,16 Q-6,16 -4,30 Q-2,42 12,38" fill="none" stroke="#1e1b18" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M44,16 Q58,16 56,30 Q54,42 40,38" fill="none" stroke="#eab308" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M44,16 Q58,16 56,30 Q54,42 40,38" fill="none" stroke="#1e1b18" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Copa dorada -->
+                            <path d="M6,8 L46,8 L42,38 Q26,54 10,38 Z" fill="#facc15" stroke="#1e1b18" stroke-width="3.5" stroke-linejoin="round"/>
+                            <!-- Estrella en el trofeo -->
+                            <polygon points="26,16 29,23 36,23 30,28 32,35 26,31 20,35 22,28 16,23 23,23" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+                            <!-- Cuello y base del trofeo -->
+                            <rect x="21" y="46" width="10" height="14" fill="#eab308" stroke="#1e1b18" stroke-width="3"/>
+                            <rect x="11" y="60" width="30" height="11" rx="3" fill="#78350f" stroke="#1e1b18" stroke-width="3"/>
+                            <rect x="16" y="63" width="20" height="5" fill="#fde047"/>
+                        </g>
+                    </svg>`;
+            }
+        }
+
+        /**
+         * Ilustraciones SVG de los 6 Complementos aislados (Fieles a la Página 3 del PDF)
+         */
+        function getAccessorySVG(type) {
+            switch (type) {
+                case 'bruja': // ESCOBA
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Palo de madera de la escoba -->
+                        <line x1="84" y1="14" x2="36" y2="62" stroke="#1e1b18" stroke-width="11" stroke-linecap="round"/>
+                        <line x1="84" y1="14" x2="36" y2="62" stroke="#854d0e" stroke-width="6.5" stroke-linecap="round"/>
+                        <!-- Cepillo de paja -->
+                        <path d="M40,56 L28,60 L10,80 L18,86 L24,82 L22,90 L30,90 L34,82 L36,90 L44,72 Z" fill="#eab308" stroke="#1e1b18" stroke-width="3" stroke-linejoin="round"/>
+                        <line x1="30" y1="66" x2="18" y2="80" stroke="#a16207" stroke-width="2"/>
+                        <line x1="35" y1="68" x2="26" y2="83" stroke="#a16207" stroke-width="2"/>
+                        <!-- Atadura del cepillo -->
+                        <rect x="33" y="57" width="12" height="6" rx="2" transform="rotate(45 39 60)" fill="#78350f" stroke="#1e1b18" stroke-width="2.5"/>
+                    </svg>`;
+
+                case 'momia': // PAPEL HIGIÉNICO
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Tira de papel suelta a la derecha -->
+                        <path d="M68,28 Q84,48 80,68 L92,76 L74,92 L58,76 Z" fill="#f8fafc" stroke="#1e1b18" stroke-width="3" stroke-linejoin="round"/>
+                        <!-- Cilindro principal del rollo -->
+                        <rect x="20" y="24" width="52" height="58" rx="10" fill="#ffffff" stroke="#1e1b18" stroke-width="3.2"/>
+                        <!-- Pliegues y arrugas del papel usado -->
+                        <path d="M20,42 Q46,54 72,36" fill="none" stroke="#94a3b8" stroke-width="2.2"/>
+                        <path d="M22,62 Q48,70 70,58" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+                        <!-- Cara superior del rollo -->
+                        <ellipse cx="46" cy="24" rx="26" ry="11" fill="#f1f5f9" stroke="#1e1b18" stroke-width="3.2"/>
+                        <!-- Tubo de cartón interior -->
+                        <ellipse cx="46" cy="24" rx="11" ry="4.8" fill="#a16207" stroke="#1e1b18" stroke-width="2.5"/>
+                    </svg>`;
+
+                case 'vampiro': // DENTADURA DE VAMPIRO
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Encía superior -->
+                        <path d="M14,42 Q14,18 50,22 Q86,18 86,42 Z" fill="#f43f5e" stroke="#1e1b18" stroke-width="3.2"/>
+                        <!-- Encía inferior -->
+                        <path d="M16,60 Q16,84 50,80 Q84,84 84,60 Z" fill="#f43f5e" stroke="#1e1b18" stroke-width="3.2"/>
+                        <!-- Dientes centrales superiores -->
+                        <rect x="35" y="36" width="10" height="12" rx="3" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="45" y="36" width="10" height="12" rx="3" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <rect x="55" y="36" width="10" height="12" rx="3" fill="#ffffff" stroke="#1e1b18" stroke-width="2.5"/>
+                        <!-- Colmillos largos superiores -->
+                        <polygon points="23,36 35,36 29,56" fill="#ffffff" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+                        <polygon points="65,36 77,36 71,56" fill="#ffffff" stroke="#1e1b18" stroke-width="2.8" stroke-linejoin="round"/>
+                        <!-- Dientes inferiores -->
+                        <rect x="32" y="54" width="9" height="10" rx="2" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                        <rect x="41" y="54" width="9" height="10" rx="2" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                        <rect x="50" y="54" width="9" height="10" rx="2" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                        <rect x="59" y="54" width="9" height="10" rx="2" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                    </svg>`;
+
+                case 'lobo': // HOCICO DE LOBO CON GOMA
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Correa / goma trasera con hebilla -->
+                        <path d="M52,32 Q92,22 90,46 Q88,66 54,62" fill="none" stroke="#1e1b18" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M52,32 Q92,22 90,46 Q88,66 54,62" fill="none" stroke="#57534e" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Base del hocico marrón -->
+                        <path d="M12,48 Q12,26 42,26 L62,32 Q68,52 56,70 Q32,76 16,62 Z" fill="#854d0e" stroke="#1e1b18" stroke-width="3.2" stroke-linejoin="round"/>
+                        <!-- Trufa negra de lobo -->
+                        <ellipse cx="22" cy="42" rx="9" ry="7" fill="#1e1b18"/>
+                        <!-- Colmillos asomando debajo del hocico -->
+                        <polygon points="18,60 25,62 21,75" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                        <polygon points="34,63 42,64 38,78" fill="#ffffff" stroke="#1e1b18" stroke-width="2.2"/>
+                        <!-- Puntos de los bigotes -->
+                        <circle cx="36" cy="46" r="1.8" fill="#1e1b18"/>
+                        <circle cx="43" cy="49" r="1.8" fill="#1e1b18"/>
+                        <circle cx="38" cy="54" r="1.8" fill="#1e1b18"/>
+                    </svg>`;
+
+                case 'gato': // CAPUCHA GRIS CON OREJAS
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Orejas puntiagudas de gato -->
+                        <polygon points="18,38 14,10 40,22" fill="#64748b" stroke="#1e1b18" stroke-width="3.2" stroke-linejoin="round"/>
+                        <polygon points="82,38 86,10 60,22" fill="#64748b" stroke="#1e1b18" stroke-width="3.2" stroke-linejoin="round"/>
+                        <!-- Forma exterior de la capucha -->
+                        <path d="M16,54 C16,18 84,18 84,54 C84,76 68,86 50,86 C32,86 16,76 16,54 Z" fill="#64748b" stroke="#1e1b18" stroke-width="3.5"/>
+                        <!-- Hueco interior oscuro de la capucha -->
+                        <ellipse cx="50" cy="55" rx="24" ry="22" fill="#0f172a" stroke="#1e1b18" stroke-width="2.5"/>
+                    </svg>`;
+
+                case 'fantasma': // SÁBANA BLANCA CON AGUJEROS
+                default:
+                    return `
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Sábana flotante con pliegues ondulados -->
+                        <path d="M28,36 C28,12 72,12 72,36 L88,80 Q76,88 66,78 Q56,90 48,80 Q36,90 26,78 L12,76 Z" fill="#ffffff" stroke="#1e1b18" stroke-width="3.2" stroke-linejoin="round"/>
+                        <!-- Pliegues interiores -->
+                        <path d="M36,52 L28,74 M64,50 L70,74 M50,56 L49,78" stroke="#cbd5e1" stroke-width="2.2" stroke-linecap="round"/>
+                        <!-- Dos agujeros negros para los ojos -->
+                        <ellipse cx="43" cy="34" rx="4.8" ry="7.5" fill="#1e1b18"/>
+                        <ellipse cx="57" cy="34" rx="4.8" ry="7.5" fill="#1e1b18"/>
+                    </svg>`;
+            }
+        }
+
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'step') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.exponentialRampToValueAtTime(320, now + 0.07);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.07);
+                    osc.start(now);
+                    osc.stop(now + 0.07);
+                } else if (type === 'transform') {
+                    const notes = [330, 440, 554.37, 659.25, 880];
+                    notes.forEach((freq, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(freq, now + idx * 0.06);
+                        g.gain.setValueAtTime(0.18, now + idx * 0.06);
+                        g.gain.exponentialRampToValueAtTime(0.008, now + idx * 0.06 + 0.18);
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.start(now + idx * 0.06);
+                        o.stop(now + idx * 0.06 + 0.18);
+                    });
+                } else if (type === 'fanfare') {
+                    const notes = [523.25, 659.25, 783.99, 1046.5];
+                    notes.forEach((freq, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.type = 'triangle';
+                        o.frequency.setValueAtTime(freq, now + idx * 0.11);
+                        g.gain.setValueAtTime(0.22, now + idx * 0.11);
+                        g.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.11 + 0.3);
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.start(now + idx * 0.11);
+                        o.stop(now + idx * 0.11 + 0.3);
+                    });
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(190, now);
+                    osc.frequency.linearRampToValueAtTime(125, now + 0.22);
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
+                    osc.start(now);
+                    osc.stop(now + 0.22);
+                }
+            } catch (e) {
+                // Ignorar si el navegador bloquea audio sin interacción
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundToggleBtn').textContent = soundEnabled ? '🔊' : '🔇';
+        }
+
+        // Estado principal del juego
+        let currentMode = 'adventure'; // 'adventure' | 'scratch' | 'dresser' | 'quiz'
+        let currentCostume = 'sara';
+        let unlockedCostumes = new Set();
+        let saraPos = { x: 12, y: 68 }; // Porcentaje en la calle
+        let saraGrid = { x: 0, y: 2 };  // Coordenadas 0..5, 0..3 en Modo Scratch Jr
+        let moveInterval = null;
+        let scratchQueue = [];
+        let isExecutingScratch = false;
+
+        // Definición explícita de las 6 preguntas del Concurso según Disfraz y Complemento
+        const QUIZ_QUESTIONS = [
+            {
+                id: 'vampiro',
+                costumeWord: 'VAMPIRO',
+                accessoryWord: 'DENTADURA',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de VAMPIRO?',
+                hintText: 'Pista: Tiene unos colmillos blancos muy afilados.'
+            },
+            {
+                id: 'bruja',
+                costumeWord: 'BRUJA',
+                accessoryWord: 'ESCOBA',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de BRUJA?',
+                hintText: 'Pista: Sirve para barrer y volar por el cielo de Halloween.'
+            },
+            {
+                id: 'momia',
+                costumeWord: 'MOMIA',
+                accessoryWord: 'PAPEL',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de MOMIA?',
+                hintText: 'Pista: Es un rollo blanco que sirve para envolverse como vendas.'
+            },
+            {
+                id: 'lobo',
+                costumeWord: 'LOBO',
+                accessoryWord: 'HOCICO',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de LOBO?',
+                hintText: 'Pista: Se sujeta con una goma y tiene nariz perruna y colmillos.'
+            },
+            {
+                id: 'gato',
+                costumeWord: 'GATO',
+                accessoryWord: 'CAPUCHA',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de GATO?',
+                hintText: 'Pista: Es de color gris y tiene dos orejitas puntiagudas.'
+            },
+            {
+                id: 'fantasma',
+                costumeWord: 'FANTASMA',
+                accessoryWord: 'SÁBANA',
+                questionPrompt: '¿Qué necesita SARA para disfrazarse de FANTASMA?',
+                hintText: 'Pista: Es blanca y tiene dos agujeros para mirar.'
+            }
+        ];
+
+        let quizCurrentIndex = 0;
+        let quizAttemptsLeft = 3;
+        let quizQuestionResolved = false;
+        let quizFirstTryHits = 0;
+        let quizSolvedCount = 0;
+        let quizCurrentOptions = [];
+        let quizAutoAdvanceTimer = null;
+
+        function startQuizGame() {
+            if (quizAutoAdvanceTimer) {
+                clearTimeout(quizAutoAdvanceTimer);
+                quizAutoAdvanceTimer = null;
+            }
+            quizCurrentIndex = 0;
+            quizFirstTryHits = 0;
+            quizSolvedCount = 0;
+            const summaryArea = document.getElementById('quizSummaryArea');
+            const activeArea = document.getElementById('quizActiveArea');
+            if (summaryArea) {
+                summaryArea.classList.add('hidden');
+                summaryArea.classList.remove('flex');
+            }
+            if (activeArea) {
+                activeArea.classList.remove('hidden');
+            }
+            loadQuizQuestion();
+        }
+
+        function loadQuizQuestion() {
+            if (quizAutoAdvanceTimer) {
+                clearTimeout(quizAutoAdvanceTimer);
+                quizAutoAdvanceTimer = null;
+            }
+
+            const qItem = QUIZ_QUESTIONS[quizCurrentIndex];
+            const targetId = qItem.id;
+            quizAttemptsLeft = 3;
+            quizQuestionResolved = false;
+
+            // Actualizar contadores superiores
+            document.getElementById('quizProgressBadge').textContent = `Pregunta ${quizCurrentIndex + 1} de ${QUIZ_QUESTIONS.length}`;
+            updateQuizLivesUI();
+
+            // Mostrar a Sara sin disfraz esperando el complemento de la pregunta actual
+            const statusBadge = document.getElementById('quizSaraStatusBadge');
+            statusBadge.textContent = `Pregunta ${quizCurrentIndex + 1}: ¿Qué necesito?`;
+            statusBadge.className = 'bg-purple-100 text-purple-900 border border-purple-400 px-3 py-0.5 rounded-full text-xs font-extrabold uppercase';
+            document.getElementById('quizSaraSvg').innerHTML = getCharacterSVG('sara');
+            document.getElementById('quizSaraWord').innerHTML = formatPedagogicalWord('SARA');
+
+            // Formatear pregunta con consonantes en azul y vocales en rojo + pista
+            document.getElementById('quizQuestionText').innerHTML = `
+                ¿Qué necesita ${formatPedagogicalWord('SARA')} para disfrazarse de ${formatPedagogicalWord(qItem.costumeWord)}?
+                <span class="block text-xs sm:text-sm font-bold text-stone-500 mt-1">${qItem.hintText}</span>
+            `;
+
+            // Seleccionar 2 distractores aleatorios + la respuesta correcta (total 3 dibujos)
+            const allKeys = Object.keys(COSTUMES_DATA).filter(k => k !== targetId);
+            for (let i = allKeys.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
+            }
+            quizCurrentOptions = [targetId, allKeys[0], allKeys[1]];
+            for (let i = quizCurrentOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [quizCurrentOptions[i], quizCurrentOptions[j]] = [quizCurrentOptions[j], quizCurrentOptions[i]];
+            }
+
+            // Renderizar las 3 tarjetas de complementos
+            const optionsGrid = document.getElementById('quizOptionsGrid');
+            optionsGrid.innerHTML = '';
+            quizCurrentOptions.forEach(optId => {
+                const optData = COSTUMES_DATA[optId];
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = `quiz-opt-${optId}`;
+                btn.className = 'pdf-card p-3 flex flex-col items-center justify-between min-h-[165px] hover:scale-105 transition cursor-pointer bg-white';
+                btn.onclick = () => handleQuizAnswer(optId, btn);
+                btn.innerHTML = `
+                    <span id="quiz-opt-badge-${optId}" class="text-[10px] font-extrabold uppercase text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">
+                        Complemento
+                    </span>
+                    <div class="w-20 h-20 my-1 flex items-center justify-center">${getAccessorySVG(optId)}</div>
+                    <div class="text-base sm:text-lg font-black tracking-wide">${formatPedagogicalWord(optData.accessoryWord)}</div>
+                `;
+                optionsGrid.appendChild(btn);
+            });
+
+            // Ocultar caja de feedback hasta que responda
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            feedbackBox.classList.add('hidden');
+            document.getElementById('quizNextBtn').classList.add('hidden');
+        }
+
+        function updateQuizLivesUI() {
+            const livesEl = document.getElementById('quizLivesDisplay');
+            let html = '';
+            for (let i = 0; i < 3; i++) {
+                html += i < quizAttemptsLeft ? '<span>❤️</span>' : '<span class="opacity-30">🖤</span>';
+            }
+            livesEl.innerHTML = html;
+        }
+
+        function handleQuizAnswer(selectedId, btnEl) {
+            if (quizQuestionResolved || btnEl.disabled) return;
+
+            const qItem = QUIZ_QUESTIONS[quizCurrentIndex];
+            const targetId = qItem.id;
+            const targetData = COSTUMES_DATA[targetId];
+            const selectedData = COSTUMES_DATA[selectedId];
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            const feedbackText = document.getElementById('quizFeedbackText');
+            const nextBtn = document.getElementById('quizNextBtn');
+
+            if (selectedId === targetId) {
+                // ¡Respuesta Correcta!
+                quizQuestionResolved = true;
+                quizSolvedCount++;
+                if (quizAttemptsLeft === 3) quizFirstTryHits++;
+
+                playSound('transform');
+                unlockedCostumes.add(targetId);
+                updateSaraAppearance(targetId);
+                renderTopSlots();
+
+                // Transformar a Sara en la tarjeta del concurso
+                const statusBadge = document.getElementById('quizSaraStatusBadge');
+                statusBadge.textContent = '¡Disfraz Conseguido! ✨';
+                statusBadge.className = 'bg-emerald-100 text-emerald-900 border border-emerald-500 px-3 py-0.5 rounded-full text-xs font-extrabold uppercase';
+                document.getElementById('quizSaraSvg').innerHTML = getCharacterSVG(targetId);
+                document.getElementById('quizSaraWord').innerHTML = formatPedagogicalWord(targetData.costumeWord);
+
+                // Marcar tarjeta ganadora en verde
+                btnEl.className = 'pdf-card p-3 flex flex-col items-center justify-between min-h-[165px] scale-105 transition bg-emerald-50';
+                btnEl.style.borderColor = '#10b981';
+                const badge = document.getElementById(`quiz-opt-badge-${selectedId}`);
+                if (badge) {
+                    badge.textContent = '✅ ¡CORRECTO!';
+                    badge.className = 'text-[10px] font-extrabold uppercase text-white bg-emerald-600 px-2.5 py-0.5 rounded-full';
+                }
+
+                // Mostrar mensaje de éxito y botón de siguiente pregunta
+                const isLast = quizCurrentIndex >= QUIZ_QUESTIONS.length - 1;
+                feedbackBox.className = 'comic-box rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 bg-emerald-100 border-emerald-600 animate-pop';
+                feedbackText.innerHTML = `¡Muy bien! Con <b>${formatPedagogicalWord(targetData.accessoryWord)}</b> Sara se disfraza de <b>${formatPedagogicalWord(targetData.costumeWord)}</b>.`;
+                nextBtn.textContent = !isLast ? 'Siguiente Pregunta ➡️' : 'Ver Trofeo Final 🏆';
+                nextBtn.classList.remove('hidden');
+
+                // Avance automático tras 2.2 segundos para que los más pequeños no se queden atascados
+                quizAutoAdvanceTimer = setTimeout(() => {
+                    nextQuizQuestion();
+                }, 2200);
+            } else {
+                // Respuesta Incorrecta: descontar 1 oportunidad (hasta 3 oportunidades)
+                quizAttemptsLeft = Math.max(0, quizAttemptsLeft - 1);
+                updateQuizLivesUI();
+                playSound('wrong');
+
+                btnEl.disabled = true;
+                btnEl.className = 'pdf-card p-3 flex flex-col items-center justify-between min-h-[165px] opacity-55 bg-rose-100 cursor-not-allowed';
+                btnEl.style.borderColor = '#ef4444';
+                const badge = document.getElementById(`quiz-opt-badge-${selectedId}`);
+                if (badge) {
+                    badge.textContent = '❌ No es este';
+                    badge.className = 'text-[10px] font-extrabold uppercase text-white bg-rose-600 px-2.5 py-0.5 rounded-full';
+                }
+
+                feedbackBox.className = 'comic-box rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 bg-amber-100 animate-pop';
+                if (quizAttemptsLeft > 0) {
+                    feedbackText.innerHTML = `¡Casi! <b>${formatPedagogicalWord(selectedData.accessoryWord)}</b> es para ${formatPedagogicalWord(selectedData.costumeWord)}. Te ${quizAttemptsLeft === 1 ? 'queda <b>1 oportunidad</b>' : `quedan <b>${quizAttemptsLeft} oportunidades</b>`}, ¡elige otro dibujo!`;
+                    nextBtn.classList.add('hidden');
+                } else {
+                    quizQuestionResolved = true;
+                    // Resaltar cuál era el correcto y transformar a Sara para que aprendan la pareja
+                    const rightBtn = document.getElementById(`quiz-opt-${targetId}`);
+                    if (rightBtn) {
+                        rightBtn.className = 'pdf-card p-3 flex flex-col items-center justify-between min-h-[165px] scale-105 transition bg-emerald-50';
+                        rightBtn.style.borderColor = '#10b981';
+                    }
+                    document.getElementById('quizSaraSvg').innerHTML = getCharacterSVG(targetId);
+                    document.getElementById('quizSaraWord').innerHTML = formatPedagogicalWord(targetData.costumeWord);
+
+                    const isLast = quizCurrentIndex >= QUIZ_QUESTIONS.length - 1;
+                    feedbackText.innerHTML = `¡Se acabaron las 3 oportunidades! Necesitaba <b>${formatPedagogicalWord(targetData.accessoryWord)}</b> para disfrazarse de <b>${formatPedagogicalWord(targetData.costumeWord)}</b>.`;
+                    nextBtn.textContent = !isLast ? 'Siguiente Pregunta ➡️' : 'Ver Trofeo Final 🏆';
+                    nextBtn.classList.remove('hidden');
+                }
+            }
+        }
+
+        function nextQuizQuestion() {
+            if (quizAutoAdvanceTimer) {
+                clearTimeout(quizAutoAdvanceTimer);
+                quizAutoAdvanceTimer = null;
+            }
+            playSound('step');
+            if (quizCurrentIndex < QUIZ_QUESTIONS.length - 1) {
+                quizCurrentIndex++;
+                loadQuizQuestion();
+            } else {
+                // Mostrar pantalla final de Sara con su Trofeo
+                playSound('fanfare');
+                document.getElementById('quizActiveArea').classList.add('hidden');
+                const summaryArea = document.getElementById('quizSummaryArea');
+                summaryArea.classList.remove('hidden');
+                summaryArea.classList.add('flex');
+                document.getElementById('quizTrophySaraSvg').innerHTML = getCharacterSVG('sara_trofeo');
+                document.getElementById('quizSummaryText').innerHTML =
+                    `¡Has completado las <b>6 preguntas</b> de los disfraces de Sara!<br>Has acertado <b>${quizSolvedCount} de 6</b> disfraces (${quizFirstTryHits} a la primera oportunidad).`;
+            }
+        }
+
+        function updateSaraAppearance(costumeId) {
+            currentCostume = costumeId;
+            const spriteContainer = document.getElementById('saraSpriteContainer');
+            if (spriteContainer) {
+                spriteContainer.innerHTML = getCharacterSVG(costumeId);
+            }
+
+            // Actualizar insignia superior izquierda
+            const badgeSvg = document.getElementById('badgeSvgContainer');
+            const badgeLabel = document.getElementById('badgeLabel');
+            if (badgeSvg && badgeLabel) {
+                badgeSvg.innerHTML = getCharacterSVG(costumeId);
+                const word = costumeId === 'sara' ? 'SARA' : COSTUMES_DATA[costumeId].costumeWord;
+                badgeLabel.innerHTML = formatPedagogicalWord(word);
+            }
+
+            // Actualizar tarjeta grande en el Modo Tarjetas
+            const dresserSvg = document.getElementById('dresserSaraSvg');
+            const dresserWord = document.getElementById('dresserSaraWord');
+            const dresserBadge = document.getElementById('dresserBadgeTop');
+            if (dresserSvg && dresserWord && dresserBadge) {
+                dresserSvg.innerHTML = getCharacterSVG(costumeId);
+                if (costumeId === 'sara') {
+                    dresserWord.innerHTML = formatPedagogicalWord('SARA');
+                    dresserBadge.textContent = 'Protagonista sin disfraz';
+                } else {
+                    const data = COSTUMES_DATA[costumeId];
+                    dresserWord.innerHTML = formatPedagogicalWord(data.costumeWord);
+                    dresserBadge.textContent = `Complemento: ${data.accessoryWord}`;
+                }
+            }
+
+            const advStatus = document.getElementById('adventureStatusText');
+            if (advStatus) {
+                if (costumeId === 'sara') {
+                    advStatus.innerHTML = `Sara lleva su <b>vestido azul</b>. ¡Usa las flechas para ir a por un complemento!`;
+                } else {
+                    const data = COSTUMES_DATA[costumeId];
+                    advStatus.innerHTML = `¡Sara va de <b>${formatPedagogicalWord(data.costumeWord)}</b> gracias al complemento <b>${formatPedagogicalWord(data.accessoryWord)}</b>!`;
+                }
+            }
+        }
+
+        function renderTopSlots() {
+            const progressEl = document.getElementById('progressText');
+            if (progressEl) {
+                progressEl.textContent = `Disfraces: ${unlockedCostumes.size} / 6`;
+            }
+
+            const pendingBadge = document.getElementById('adventurePendingBadge');
+            if (pendingBadge) {
+                const remaining = Math.max(0, 6 - unlockedCostumes.size);
+                pendingBadge.textContent = remaining === 0 ? '¡Completado! 🎉' : `Faltan: ${remaining}`;
+            }
+
+            Object.values(COSTUMES_DATA).forEach(item => {
+                const slotEl = document.getElementById(`slot-${item.id}`);
+                if (!slotEl) return;
+                const isUnlocked = unlockedCostumes.has(item.id);
+                if (isUnlocked) {
+                    slotEl.className = 'cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-emerald-600 bg-emerald-50 flex flex-col items-center justify-center p-0.5 transition hover:scale-105 shadow-sm';
+                    slotEl.innerHTML = `
+                        <div class="w-8 h-8 sm:w-9 sm:h-9">${getCharacterSVG(item.id)}</div>
+                        <span class="text-[8px] font-black leading-none mt-0.5">${formatPedagogicalWord(item.costumeWord)}</span>
+                    `;
+                } else {
+                    slotEl.className = 'cursor-pointer w-11 h-14 sm:w-12 sm:h-16 rounded-lg border-2 border-dashed border-amber-500 bg-white/75 flex flex-col items-center justify-center p-0.5 transition hover:scale-105 opacity-80';
+                    slotEl.innerHTML = `
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 opacity-65">${getAccessorySVG(item.id)}</div>
+                        <span class="text-[8px] font-bold text-stone-500 leading-none mt-0.5">${item.accessoryWord}</span>
+                    `;
+                }
+            });
+        }
+
+        function renderStreetAccessories() {
+            const layer = document.getElementById('accessoriesLayer');
+            if (!layer) return;
+            layer.innerHTML = '';
+
+            Object.values(COSTUMES_DATA).forEach(item => {
+                // Si ya se recogió este complemento, desaparece del escenario
+                if (unlockedCostumes.has(item.id)) return;
+
+                const wrapper = document.createElement('div');
+                let leftPos = item.posX;
+                let topPos = item.posY;
+                let sizeClass = 'w-16 h-20 sm:w-20 sm:h-24';
+                let floatClass = 'animate-float';
+
+                if (currentMode === 'scratch') {
+                    const cellCenter = getScratchCellCenter(item.gridX, item.gridY);
+                    leftPos = cellCenter.leftPct;
+                    topPos = cellCenter.topPct;
+                    sizeClass = 'w-14 h-16 sm:w-16 sm:h-20';
+                    floatClass = ''; // Fijo en el centro exacto de la casilla en Scratch Jr
+                }
+
+                // Contenedor posicionado exactamente en el centro de la casilla/coordenada
+                wrapper.className = 'absolute flex items-center justify-center';
+                wrapper.style.left = `${leftPos}%`;
+                wrapper.style.top = `${topPos}%`;
+                wrapper.style.transform = 'translate(-50%, -50%)';
+
+                const card = document.createElement('div');
+                card.className = `pdf-card ${sizeClass} ${floatClass} flex flex-col items-center justify-center p-1 cursor-pointer transition-transform hover:scale-110`;
+                card.onclick = (e) => {
+                    e.stopPropagation();
+                    if (currentMode === 'adventure') {
+                        moveSaraTowards(item.posX, item.posY, item.id);
+                    }
+                };
+                card.innerHTML = `
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">${getAccessorySVG(item.id)}</div>
+                    <div class="text-[9px] sm:text-[10px] font-black tracking-tight leading-none mt-0.5">${formatPedagogicalWord(item.accessoryWord)}</div>
+                `;
+
+                wrapper.appendChild(card);
+                layer.appendChild(wrapper);
+            });
+        }
+
+        function renderScratchGridCells() {
+            const gridOverlay = document.getElementById('scratchGridOverlay');
+            if (!gridOverlay) return;
+            gridOverlay.innerHTML = '';
+            for (let row = 0; row < SCRATCH_GRID_BOUNDS.rows; row++) {
+                for (let col = 0; col < SCRATCH_GRID_BOUNDS.cols; col++) {
+                    const cell = document.createElement('div');
+                    const isSaraHere = (saraGrid.x === col && saraGrid.y === row);
+                    cell.className = `scratch-grid-cell ${isSaraHere ? 'bg-sky-400/30 ring-2 ring-yellow-300' : ''}`;
+                    cell.innerHTML = `<span class="absolute top-0.5 left-1 text-[9px] font-bold text-sky-100/80">${col + 1},${row + 1}</span>`;
+                    gridOverlay.appendChild(cell);
+                }
+            }
+        }
+
+        function renderDresserCards() {
+            const grid = document.getElementById('dresserCardsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            Object.values(COSTUMES_DATA).forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'pdf-card p-3 flex flex-col items-center justify-between min-h-[150px] hover:scale-105 transition cursor-pointer bg-white';
+                btn.onclick = () => {
+                    triggerCostumeTransform(item.id, true);
+                };
+                btn.innerHTML = `
+                    <span class="text-[10px] font-bold uppercase text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+                        ➡️ ${item.costumeWord}
+                    </span>
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 my-1 flex items-center justify-center">${getAccessorySVG(item.id)}</div>
+                    <div class="text-sm sm:text-base font-black tracking-wide">${formatPedagogicalWord(item.accessoryWord)}</div>
+                `;
+                grid.appendChild(btn);
+            });
+        }
+
+        function initGame() {
+            updateSaraAppearance('sara');
+            renderTopSlots();
+            renderStreetAccessories();
+            renderDresserCards();
+            renderScratchGridCells();
+            updateSaraPositionOnStage();
+            setupKeyboardListeners();
+        }
+
+        function resetSaraToBase() {
+            playSound('step');
+            updateSaraAppearance('sara');
+            showSaraBubble('¡Lista para otro disfraz!');
+        }
+
+        function showSaraBubble(text) {
+            const bubble = document.getElementById('saraBubble');
+            bubble.textContent = text;
+            bubble.classList.remove('hidden');
+            clearTimeout(bubble._timer);
+            bubble._timer = setTimeout(() => bubble.classList.add('hidden'), 2400);
+        }
+
+        function updateSaraPositionOnStage() {
+            const player = document.getElementById('saraPlayer');
+            const spriteBox = document.getElementById('saraSpriteContainer');
+            if (currentMode === 'scratch') {
+                const scratchCenter = getScratchCellCenter(saraGrid.x, saraGrid.y);
+                player.style.left = `${scratchCenter.leftPct}%`;
+                player.style.top = `${scratchCenter.topPct}%`;
+                if (spriteBox) spriteBox.className = 'w-16 h-20 sm:w-20 sm:h-24 drop-shadow-[0_6px_4px_rgba(0,0,0,0.45)]';
+                renderScratchGridCells();
+            } else {
+                player.style.left = `${saraPos.x}%`;
+                player.style.top = `${saraPos.y}%`;
+                if (spriteBox) spriteBox.className = 'w-24 h-28 sm:w-28 sm:h-32 drop-shadow-[0_6px_4px_rgba(0,0,0,0.45)]';
+            }
+        }
+
+        function moveSaraStep(dx, dy) {
+            if (currentMode !== 'adventure') return;
+            saraPos.x = Math.max(8, Math.min(92, saraPos.x + dx * 4.2));
+            saraPos.y = Math.max(42, Math.min(90, saraPos.y + dy * 4.2));
+            updateSaraPositionOnStage();
+            checkAccessoryCollisions();
+        }
+
+        function startMove(dx, dy, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (currentMode !== 'adventure') return;
+            stopMove();
+            const sprite = document.getElementById('saraSpriteContainer');
+            if (sprite) sprite.classList.add('sara-walking');
+            playSound('step');
+            moveSaraStep(dx, dy);
+            moveInterval = setInterval(() => moveSaraStep(dx, dy), 80);
+        }
+
+        function stopMove() {
+            if (moveInterval) {
+                clearInterval(moveInterval);
+                moveInterval = null;
+            }
+            const sprite = document.getElementById('saraSpriteContainer');
+            if (sprite) sprite.classList.remove('sara-walking');
+        }
+
+        function handleStageClick(event) {
+            if (currentMode !== 'adventure') return;
+            const rect = document.getElementById('streetContainer').getBoundingClientRect();
+            const clickX = ((event.clientX - rect.left) / rect.width) * 100;
+            const clickY = ((event.clientY - rect.top) / rect.height) * 100;
+            moveSaraTowards(clickX, Math.max(46, Math.min(90, clickY)), null);
+        }
+
+        function moveSaraTowards(targetX, targetY, targetId) {
+            saraPos.x = Math.max(8, Math.min(92, targetX));
+            saraPos.y = Math.max(46, Math.min(90, targetY));
+            playSound('step');
+            updateSaraPositionOnStage();
+            setTimeout(() => {
+                if (targetId && !unlockedCostumes.has(targetId)) {
+                    triggerCostumeTransform(targetId, false);
+                } else {
+                    checkAccessoryCollisions();
+                }
+            }, 210);
+        }
+
+        function checkAccessoryCollisions() {
+            for (const item of Object.values(COSTUMES_DATA)) {
+                // Ignorar complementos que ya han sido recogidos para no bloquear a Sara
+                if (unlockedCostumes.has(item.id)) continue;
+
+                const dist = Math.hypot(saraPos.x - item.posX, saraPos.y - item.posY);
+                if (dist < 8.5) {
+                    // Transformar a Sara y eliminar la tarjeta sin detener su movimiento
+                    triggerCostumeTransform(item.id, false);
+                    break;
+                }
+            }
+        }
+
+        function triggerCostumeTransform(costumeId, showModalPopup) {
+            const data = COSTUMES_DATA[costumeId];
+            if (!data) return;
+
+            playSound('transform');
+            unlockedCostumes.add(costumeId);
+            updateSaraAppearance(costumeId);
+            renderTopSlots();
+            renderStreetAccessories();
+
+            // Actualizar barra superior con la relación Complemento -> Disfraz sin interrumpir el paso
+            document.getElementById('missionPrompt').innerHTML =
+                `¡Genial! Con <b>${formatPedagogicalWord(data.accessoryWord)}</b> Sara se disfraza de <b>${formatPedagogicalWord(data.costumeWord)}</b>. ${
+                    unlockedCostumes.size < 6 ? '¡Sigue avanzando a por el siguiente!' : '¡Has completado todos los disfraces!'
+                }`;
+
+            // Mostrar explosión cómic "¡ZAS!"
+            const powEl = document.getElementById('comicPowEffect');
+            const playerEl = document.getElementById('saraPlayer');
+            powEl.style.left = playerEl.style.left;
+            powEl.style.top = playerEl.style.top;
+            powEl.classList.remove('hidden');
+            setTimeout(() => powEl.classList.add('hidden'), 650);
+
+            showSaraBubble(`¡Soy Sara ${data.costumeWord}!`);
+
+            if (showModalPopup) {
+                setTimeout(() => openMatchModal(data), 450);
+            } else if (unlockedCostumes.size === 6) {
+                // Si ya recogió las 6 tarjetas de la calle, mostrar la celebración final en el teatro
+                stopMove();
+                setTimeout(() => {
+                    playSound('fanfare');
+                    document.getElementById('finaleModal').classList.remove('hidden');
+                }, 800);
+            }
+        }
+
+        function openMatchModal(data) {
+            document.getElementById('modalAccSvg').innerHTML = getAccessorySVG(data.id);
+            document.getElementById('modalAccWord').innerHTML = formatPedagogicalWord(data.accessoryWord);
+            document.getElementById('modalCostumeSvg').innerHTML = getCharacterSVG(data.id);
+            document.getElementById('modalCostumeWord').innerHTML = formatPedagogicalWord(data.costumeWord);
+            document.getElementById('modalStoryText').textContent = data.story;
+            document.getElementById('matchModal').classList.remove('hidden');
+        }
+
+        function closeMatchModal() {
+            document.getElementById('matchModal').classList.add('hidden');
+            // Si ya consiguió los 6 disfraces, mostrar el gran final en el teatro
+            if (unlockedCostumes.size === 6) {
+                playSound('fanfare');
+                document.getElementById('finaleModal').classList.remove('hidden');
+            }
+        }
+
+        function selectTargetCostume(costumeId) {
+            const data = COSTUMES_DATA[costumeId];
+            document.getElementById('missionPrompt').innerHTML =
+                `¡Busca el complemento <b>${formatPedagogicalWord(data.accessoryWord)}</b> para que Sara se disfrace de <b>${formatPedagogicalWord(data.costumeWord)}</b>!`;
+            if (currentMode === 'dresser') {
+                triggerCostumeTransform(costumeId, false);
+            }
+        }
+
+        function setGameMode(mode) {
+            currentMode = mode;
+            stopMove();
+
+            const streetContainer = document.getElementById('streetContainer');
+            const adventurePanel = document.getElementById('adventurePanel');
+            const scratchPanel = document.getElementById('scratchPanel');
+            const scratchGrid = document.getElementById('scratchGridOverlay');
+            const dresserContainer = document.getElementById('dresserContainer');
+            const quizContainer = document.getElementById('quizContainer');
+
+            dresserContainer.classList.add('hidden');
+            dresserContainer.classList.remove('flex');
+            if (quizContainer) {
+                quizContainer.classList.add('hidden');
+                quizContainer.classList.remove('flex');
+            }
+
+            if (mode === 'adventure') {
+                if (unlockedCostumes.size === 6) unlockedCostumes.clear();
+                streetContainer.classList.remove('hidden');
+                adventurePanel.classList.remove('hidden');
+                scratchPanel.classList.add('hidden');
+                scratchGrid.classList.add('hidden');
+                document.getElementById('missionTag').textContent = 'Modo Calle';
+                renderTopSlots();
+                renderStreetAccessories();
+                updateSaraPositionOnStage();
+            } else if (mode === 'scratch') {
+                if (unlockedCostumes.size === 6) unlockedCostumes.clear();
+                streetContainer.classList.remove('hidden');
+                adventurePanel.classList.add('hidden');
+                scratchPanel.classList.remove('hidden');
+                scratchGrid.classList.remove('hidden');
+                document.getElementById('missionTag').textContent = 'Reto Scratch Jr';
+                saraGrid = { x: 0, y: 2 };
+                clearScratchProgram();
+                renderTopSlots();
+                renderScratchGridCells();
+                renderStreetAccessories();
+                updateSaraPositionOnStage();
+            } else if (mode === 'dresser') {
+                streetContainer.classList.add('hidden');
+                adventurePanel.classList.add('hidden');
+                scratchPanel.classList.add('hidden');
+                dresserContainer.classList.remove('hidden');
+                dresserContainer.classList.add('flex');
+                document.getElementById('missionTag').textContent = 'Juego de Tarjetas';
+            } else if (mode === 'quiz') {
+                streetContainer.classList.add('hidden');
+                adventurePanel.classList.add('hidden');
+                scratchPanel.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                quizContainer.classList.add('flex');
+                document.getElementById('missionTag').textContent = 'Modo Concurso';
+                document.getElementById('missionPrompt').innerHTML =
+                    '¡Responde las <b>6 preguntas</b> eligiendo el complemento correcto para disfrazar a Sara!';
+                startQuizGame();
+            }
+        }
+
+        function addScratchBlock(dir) {
+            if (isExecutingScratch || scratchQueue.length >= 10) return;
+            playSound('step');
+            scratchQueue.push(dir);
+            renderScratchQueue();
+        }
+
+        function clearScratchProgram() {
+            if (isExecutingScratch) return;
+            scratchQueue = [];
+            renderScratchQueue();
+        }
+
+        function renderScratchQueue() {
+            const container = document.getElementById('scratchProgramList');
+            const icons = { RIGHT: '➡️', LEFT: '⬅️', UP: '⬆️', DOWN: '⬇️' };
+            container.innerHTML = scratchQueue.map((dir, index) => `
+                <div id="block-step-${index}" class="bg-blue-500 text-white border-2 border-stone-900 rounded-lg px-2 py-1.5 text-sm font-bold shrink-0 transition">
+                    ${icons[dir]}
+                </div>
+            `).join('');
+        }
+
+        async function runScratchProgram() {
+            if (isExecutingScratch || scratchQueue.length === 0) return;
+            isExecutingScratch = true;
+            let collectedAny = false;
+
+            for (let i = 0; i < scratchQueue.length; i++) {
+                const dir = scratchQueue[i];
+                const blockEl = document.getElementById(`block-step-${i}`);
+                if (blockEl) blockEl.classList.add('ring-4', 'ring-yellow-300', 'scale-110');
+
+                if (dir === 'RIGHT') saraGrid.x = Math.min(5, saraGrid.x + 1);
+                if (dir === 'LEFT') saraGrid.x = Math.max(0, saraGrid.x - 1);
+                if (dir === 'UP') saraGrid.y = Math.max(0, saraGrid.y - 1);
+                if (dir === 'DOWN') saraGrid.y = Math.min(3, saraGrid.y + 1);
+
+                playSound('step');
+                updateSaraPositionOnStage();
+
+                // Si Sara pasa por encima de una tarjeta no recogida, la coge, desaparece y sigue avanzando
+                const foundOnStep = Object.values(COSTUMES_DATA).find(
+                    item => !unlockedCostumes.has(item.id) && item.gridX === saraGrid.x && item.gridY === saraGrid.y
+                );
+                if (foundOnStep) {
+                    collectedAny = true;
+                    triggerCostumeTransform(foundOnStep.id, false);
+                }
+
+                await new Promise(r => setTimeout(r, 420));
+                if (blockEl) blockEl.classList.remove('ring-4', 'ring-yellow-300', 'scale-110');
+            }
+
+            if (collectedAny) {
+                scratchQueue = [];
+                renderScratchQueue();
+            } else {
+                showSaraBubble('¡Sigue avanzando hacia otra tarjeta!');
+            }
+            isExecutingScratch = false;
+        }
+
+        function restartFullGame() {
+            unlockedCostumes.clear();
+            document.getElementById('finaleModal').classList.add('hidden');
+            saraPos = { x: 12, y: 68 };
+            saraGrid = { x: 0, y: 2 };
+            updateSaraAppearance('sara');
+            renderTopSlots();
+            renderStreetAccessories();
+            updateSaraPositionOnStage();
+        }
+
+        function closeFinaleAndExplore() {
+            document.getElementById('finaleModal').classList.add('hidden');
+            setGameMode('dresser');
+        }
+
+        function setupKeyboardListeners() {
+            window.addEventListener('pointerup', stopMove);
+            window.addEventListener('pointercancel', stopMove);
+            window.addEventListener('keydown', (e) => {
+                if (currentMode !== 'adventure') return;
+                if (['ArrowUp', 'KeyW'].includes(e.code)) { e.preventDefault(); moveSaraStep(0, -1); }
+                if (['ArrowDown', 'KeyS'].includes(e.code)) { e.preventDefault(); moveSaraStep(0, 1); }
+                if (['ArrowLeft', 'KeyA'].includes(e.code)) { e.preventDefault(); moveSaraStep(-1, 0); }
+                if (['ArrowRight', 'KeyD'].includes(e.code)) { e.preventDefault(); moveSaraStep(1, 0); }
+            });
+        }
+
+        window.onload = initGame;
+    </script>
+</body>
+</html>
